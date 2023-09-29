@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchCartSpinner } from "./cartSpinnerAPI";
-import { fetchCartDropdown } from "./cartDropdownAPI";
+//import { fetchCartSpinner } from "./cartSpinnerAPI";
+//import { fetchCartDropdown } from "./cartDropdownAPI";
 //
 import { PURGE } from "redux-persist";
 import { HYDRATE } from "next-redux-wrapper";
@@ -13,16 +13,16 @@ const initialState = {
   // error: null,
 };
 
-export const cartSpinnerAsync = createAsyncThunk(
+/*export const cartSpinnerAsync = createAsyncThunk(
   "cart/fetchCartSpinner",
   async (initialPost) => {
     const response = await fetchCartSpinner(initialPost);
 
     return response.data;
   }
-);
+);*/
 
-export const cartDropdownAsync = createAsyncThunk(
+/*export const cartDropdownAsync = createAsyncThunk(
   "cart/fetchCartDropdown",
   async (initialPost, { dispatch }) => {
     const response = await fetchCartDropdown(initialPost);
@@ -32,7 +32,7 @@ export const cartDropdownAsync = createAsyncThunk(
     dispatch(productUpdated(initialPost));
     return response.data;
   }
-);
+);*/
 
 const cartSlice = createSlice({
   name: "cart",
@@ -77,7 +77,7 @@ const cartSlice = createSlice({
     },
     ////////////////////
   },
-  extraReducers: (builder) => {
+  /*extraReducers: (builder) => {
     builder
       .addCase(cartSpinnerAsync.pending, (state, { meta }) => {
         let index = state.products
@@ -103,13 +103,8 @@ const cartSlice = createSlice({
       .addCase(PURGE, (state) => {
         customEntityAdapter.removeAll(state);
       });
-    /*.addCase(HYDRATE, (state, action) => {
-        return {
-          ...state,
-          ...action.payload.cart,
-        };
-      });*/
-  },
+    
+  },*/
 });
 
 export const {
