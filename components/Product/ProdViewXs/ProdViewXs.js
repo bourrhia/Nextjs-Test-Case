@@ -1570,7 +1570,7 @@ export const ProdViewXs = ({ selectedprd }) => {
                                     display: "inline-block",
                                   }}
                                 >
-                                  Description de l'article
+                                  Description de larticle
                                 </Box>
                               </Box>
                               <CustChevronRightIcon
@@ -1627,7 +1627,7 @@ export const ProdViewXs = ({ selectedprd }) => {
                                   Lecteur optique : Graveur DVD. Réseau :
                                   Integrated Realtek LOM + Clé USB Wifi. - 1 x
                                   HDMI. MonsieurCyberMan Reprend &amp; Répare
-                                  Vos Vieux PC :-)". 56350 Béganne - France. Les
+                                  Vos Vieux PC :-. 56350 Béganne - France. Les
                                   Fosses Rouges. Nos coordonnées.
                                 </Box>
                               </Box>
