@@ -2446,7 +2446,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                     lineHeight: "20px",
                   }}
                 >
-                  Pays d'origibne &rlm; : &lrm;
+                  Pays origibne &rlm; : &lrm;
                 </Box>
                 <Box component="span">{selectedprd[0].paysorigibne}</Box>
               </Box>
