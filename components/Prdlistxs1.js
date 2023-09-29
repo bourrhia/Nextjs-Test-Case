@@ -8,11 +8,8 @@ import Link from "next/link";
 export const Prdlistxs1 = ({ imgmrv }) => {
   // const filteredImg = imgmrv.filter((image, i) => i < 4);
   //const renderedImg = filteredImg.map((image) => (
-  const renderedImg = imgmrv.map((image) => (
-    <Link
-      href={`/produit/${encodeURIComponent(image.imgNum)}`}
-      key={image.imgNum}
-    >
+  const renderedImg = imgmrv.map((image, i) => (
+    <Link href={`/produit/${encodeURIComponent(image.imgNum)}`} key={i}>
       <Box
         component="a"
         //key={image.imgNum}
