@@ -1207,7 +1207,10 @@ function Header(props) {
                     outline: 0,
                   }}
                 >
-                  <Typography variant="caption text"> S'incsrire</Typography>
+                  <Typography variant="caption text">
+                    {" "}
+                    S&rsquo;incsrire
+                  </Typography>
                 </Box>
               </Box>
             </Box>
