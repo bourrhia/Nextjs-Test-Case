@@ -24,9 +24,6 @@ function CustChevronRightIcon(props) {
   );
 }
 export const Prodview = ({ prodselec }) => {
-  // const { imgmrv } = props;
-  // console.log(selectedprd);
-
   const router = useRouter();
 
   // If the page is not yet generated, this will be displayed
