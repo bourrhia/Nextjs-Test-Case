@@ -21,11 +21,10 @@ export const Prdlistxs1 = ({ imgmrv }) => {
   };
 
   console.log("vendredi imgmrv :", imgmrv);
-  const renderedImg = imgmrv.map((image, index) => (
+  const renderedImg = imgmrv.map((image) => (
     <Box
       component="a"
-      //key={image.imgNum}
-      key={index}
+      key={image.imgNum}
       onClick={(e) => {
         e.preventDefault();
         showProduct(image.imgNum);
