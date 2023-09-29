@@ -9,10 +9,13 @@ export const Prdlistxs1 = ({ imgmrv }) => {
   // const filteredImg = imgmrv.filter((image, i) => i < 4);
   //const renderedImg = filteredImg.map((image) => (
   const renderedImg = imgmrv.map((image) => (
-    <Link href={`/produit/${encodeURIComponent(image.imgNum)}`}>
+    <Link
+      href={`/produit/${encodeURIComponent(image.imgNum)}`}
+      key={image.imgNum}
+    >
       <Box
         component="a"
-        key={image.imgNum}
+        //key={image.imgNum}
         sx={{
           cursor: "pointer",
 
