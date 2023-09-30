@@ -20,14 +20,18 @@ import { SessionProvider } from "next-auth/react";
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
+<<<<<<< HEAD
 /*const MyApp = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { emotionCache = clientSideEmotionCache, pageProps } = props;*/
+=======
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
 export default function MyApp({ Component, ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { emotionCache = clientSideEmotionCache, pageProps } = props;
   //export default function MyApp(props) {
   // const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+<<<<<<< HEAD
   const { session } = pageProps;
   /* console.log("_app.js rest:", rest);
   console.log("_app.js pageProps:", pageProps);
@@ -47,12 +51,21 @@ export default function MyApp({ Component, ...rest }) {
   const [token, setToken] = useState();
   const [resetCode, setResetCode] = useState();
   const [userId, setUserId] = useState();
+=======
+
+  const router = useRouter();
+
+  const [hasMounted, setHasMounted] = useState(false);
+  const [asPath, setAsPath] = useState("");
+  const [pdescid, setPdescid] = useState();
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
 
   // Set router.isReady when the page has mounted
   useEffect(() => {
     // setIsReady(router.isReady);
     if (router.isReady) {
       //  const { vpdescid, vasPath } = router.query;
+<<<<<<< HEAD
       setIsReady(router.isReady);
       setAsPath(router.asPath);
       setPdescid(router.query.pdescid);
@@ -109,6 +122,14 @@ export default function MyApp({ Component, ...rest }) {
 
   /////////////////////////////////// End Add //////////////////////////////////////////////
 
+=======
+
+      setAsPath(router.asPath);
+      setPdescid(router.query.pdescid);
+    }
+  }, [router]);
+
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   // Blocking hydration warning
   useEffect(() => {
     setHasMounted(true);
@@ -118,6 +139,7 @@ export default function MyApp({ Component, ...rest }) {
   }
 
   const currentAsPath = router.asPath;
+<<<<<<< HEAD
   // Get the current URL
   //const currentURL = decodeURIComponent(window.location.href);
   // const targetURL = `/auth/emailUsed?errorMsg=${errorMsg}&email=${email}`;
@@ -240,6 +262,11 @@ export default function MyApp({ Component, ...rest }) {
 
   const asPathWanted14 = isMatchingChgPswdSuccessURL;
 
+=======
+
+  const asPathWanted = asPath === `/produit/pdescdet/${pdescid}`;
+
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   if (asPathWanted) {
     return (
       <CacheProvider value={emotionCache}>
@@ -264,6 +291,7 @@ export default function MyApp({ Component, ...rest }) {
     );
   }
 
+<<<<<<< HEAD
   if (
     asPathWanted2 ||
     asPathWanted3 ||
@@ -330,6 +358,31 @@ export default function MyApp({ Component, ...rest }) {
         </PersistGate>
       </Provider>
     </SessionProvider>
+=======
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <CacheProvider value={emotionCache}>
+          <Head>
+            <title>Dimapromo</title>
+            <meta
+              name="viewport"
+              content="initial-scale=1, width=device-width"
+            />
+          </Head>
+
+          <ThemeProvider theme={theme}>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
+        </CacheProvider>
+      </PersistGate>
+    </Provider>
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   );
 }
 

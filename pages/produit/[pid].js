@@ -24,9 +24,12 @@ function CustChevronRightIcon(props) {
   );
 }
 export const Prodview = ({ prodselec }) => {
+<<<<<<< HEAD
   // const { imgmrv } = props;
   // console.log(selectedprd);
 
+=======
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   const router = useRouter();
 
   // If the page is not yet generated, this will be displayed

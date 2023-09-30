@@ -48,8 +48,13 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Image from "next/image";
 
 import Badge, { BadgeProps } from "@mui/material/Badge";
+<<<<<<< HEAD
 import { useSelector } from "react-redux";
 import { signOut, useSession } from "next-auth/react";
+=======
+//import { useSelector } from "react-redux";
+//import { signOut, useSession } from "next-auth/react";
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
 import Logout from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
 import Menu, { MenuProps } from "@mui/material/Menu";
@@ -57,6 +62,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useRouter } from "next/router";
+<<<<<<< HEAD
 import { products } from "../data/product";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Paper from "@mui/material/Paper";
@@ -68,6 +74,13 @@ import * as yup from "yup";
 import Fuse from "fuse.js";
 import CircularProgress from "@mui/material/CircularProgress";
 import useSearchTerm from "../hooks/useSearchTerm";
+=======
+//import { products } from "../data/product";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Paper from "@mui/material/Paper";
+
+import CircularProgress from "@mui/material/CircularProgress";
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -280,6 +293,7 @@ function Header(props) {
 
   const menuListRef = useRef(null);
 
+<<<<<<< HEAD
   const fuzzySearchSchema = yup.object().shape({
     searchInput: yup
       .string("Le mot à rechercher doit être une chaîne de caractères")
@@ -536,6 +550,16 @@ function Header(props) {
     // setValue('searchTerm', options[index]);
   };
 
+=======
+  ///////////////  ADD  /////////////////////////////
+
+  //////////////////////// END ADD /////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////
+
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   const handleNavHome = async () => {
     // setIsNavHome(true);
 
@@ -550,6 +574,7 @@ function Header(props) {
     }
   };
 
+<<<<<<< HEAD
   const handleOpenCart = async (e) => {
     e.preventDefault();
     setIsNavOpenCart(true);
@@ -650,14 +675,19 @@ function Header(props) {
     return cart.reduce((accumulator, item) => accumulator + item.prodQtee, 0);
   };
 
+=======
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   // Add session infos
 
+<<<<<<< HEAD
   const { data: session } = useSession();
 
+=======
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   ///////////
 
   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -670,12 +700,15 @@ function Header(props) {
     setAnchorEl(null);
   };
 
+<<<<<<< HEAD
   const handleSignOut = async (event) => {
     event.preventDefault();
 
     await signOut({ redirect: false });
   };
 
+=======
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   ///////////
 
   const drawer = (
@@ -1189,12 +1222,20 @@ function Header(props) {
                     e.preventDefault();
                     handleNavHome();
                   }}
+<<<<<<< HEAD
                   disabled={
+=======
+                  /*disabled={
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                     isLoading ||
                     isNavOpenCart ||
                     isOnClickSignUp ||
                     isOnClickSignIn
+<<<<<<< HEAD
                   }
+=======
+                  }*/
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                   sx={{
                     display: "block",
                     overflow: "hidden",
@@ -1238,7 +1279,11 @@ function Header(props) {
                 id="fuzzySearch_form"
                 name="fuzzySearch"
                 method="post"
+<<<<<<< HEAD
                 onSubmit={handleSubmit(onSubmit)}
+=======
+                //onSubmit={handleSubmit(onSubmit)}
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                 sx={{
                   margin: 0,
                   padding: 0,
@@ -1297,7 +1342,11 @@ function Header(props) {
                               autoCorrect="off"
                               spellCheck="false"
                               autoComplete="off"
+<<<<<<< HEAD
                               {...register("searchInput")}
+=======
+                              // {...register("searchInput")}
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                               //value={searchTerm}
                               onChange={(e) =>
                                 //setSelectedResultIndex(-1)
@@ -1338,6 +1387,7 @@ function Header(props) {
                             </StyledSearchIcon>
                           </Box>
                         </Box>
+<<<<<<< HEAD
 
                         <Box
                           // tabIndex="0"
@@ -1528,6 +1578,8 @@ function Header(props) {
                           </Box> 
                           */}
                         </Box>
+=======
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                       </Box>
                       <Box
                         component="td"
@@ -1542,7 +1594,11 @@ function Header(props) {
                       >
                         <Box
                           component="input"
+<<<<<<< HEAD
                           disabled={isLoading || isSubmitting || isSearching}
+=======
+                          //disabled={isLoading || isSubmitting || isSearching}
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                           type="submit"
                           value="Rechercher"
                           sx={(theme) => ({
@@ -1602,6 +1658,7 @@ function Header(props) {
                             fill: "#fff",
                           }}
                         ></SearchIcon>
+<<<<<<< HEAD
 
                         {(isSubmitting || isSearching) && (
                           <Box
@@ -1622,6 +1679,8 @@ function Header(props) {
                             <CircularProgress size={40} />
                           </Box>
                         )}
+=======
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                       </Box>
                     </Box>
                   </Box>
@@ -1710,6 +1769,7 @@ function Header(props) {
               height: "100%",
             }}
           >
+<<<<<<< HEAD
             {session ? (
               <Box>
                 <Button
@@ -1807,6 +1867,67 @@ function Header(props) {
                     isOnClickSignUp ||
                     isOnClickSignIn
                   }
+=======
+            <Box
+              component="span"
+              sx={{
+                paddingRight: "5px",
+                color: "#000",
+                FontSize: "12px",
+                whiteSpace: "nowrap",
+                display: "inline-block",
+                padding: "5px 17px 16px 10px",
+                border: "1px solid #fff",
+                borderWidth: "2px 1px 0",
+                textDecoration: "none",
+                position: "relative",
+                left: "-10px",
+              }}
+            >
+              <Typography variant="caption text">
+                Bienvenue&nbsp;!&nbsp;
+              </Typography>
+              <Box
+                // component="a"
+                component="button"
+                // onClick={handleOnClickSignIn}
+                /* disabled={
+                    isLoading ||
+                    isNavOpenCart ||
+                    isOnClickSignUp ||
+                    isOnClickSignIn
+                  }*/
+                sx={{
+                  textDecoration: "underline",
+                  color: "#0654ba",
+                  cursor: "pointer",
+                  //
+                  backgroundColor: "transparent",
+                  border: "none",
+                  outline: 0,
+                }}
+              >
+                <Typography variant="caption text">Se Connecter</Typography>
+              </Box>
+              &nbsp;
+              <Box
+                component="span"
+                sx={{
+                  color: "#000",
+                }}
+              >
+                ou&nbsp;
+                <Box
+                  //component="a"
+                  component="button"
+                  //  onClick={handleOnClickSignUp}
+                  /*disabled={
+                      isLoading ||
+                      isNavOpenCart ||
+                      isOnClickSignUp ||
+                      isOnClickSignIn
+                    }*/
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                   sx={{
                     textDecoration: "underline",
                     color: "#0654ba",
@@ -1817,6 +1938,7 @@ function Header(props) {
                     outline: 0,
                   }}
                 >
+<<<<<<< HEAD
                   <Typography variant="caption text">Se Connecter</Typography>
                 </Box>
                 &nbsp;
@@ -1854,6 +1976,15 @@ function Header(props) {
                 </Box>
               </Box>
             )}
+=======
+                  <Typography variant="caption text">
+                    {" "}
+                    S&rsquo;incsrire
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
           </Box>
         </Box>
         <Box
@@ -1912,13 +2043,22 @@ function Header(props) {
               >
                 <Box
                   component="button"
+<<<<<<< HEAD
                   onClick={handleOnClickSignIn}
                   disabled={
+=======
+                  // onClick={handleOnClickSignIn}
+                  /*disabled={
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                     isLoading ||
                     isNavOpenCart ||
                     isOnClickSignUp ||
                     isOnClickSignIn
+<<<<<<< HEAD
                   }
+=======
+                  }*/
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                   sx={{
                     padding: "3px 17px 2px",
                     marginRight: "4px",
@@ -1999,13 +2139,22 @@ function Header(props) {
                 <Box
                   //component="a"
                   component="button"
+<<<<<<< HEAD
                   onClick={handleOpenCart}
                   disabled={
+=======
+                  //onClick={handleOpenCart}
+                  /*disabled={
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                     isLoading ||
                     isNavOpenCart ||
                     isOnClickSignUp ||
                     isOnClickSignIn
+<<<<<<< HEAD
                   }
+=======
+                  }*/
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                   sx={{
                     // padding: "3px 10px 2px",
                     padding: 0,
@@ -2029,8 +2178,13 @@ function Header(props) {
                 >
                   <IconButton aria-label="cart">
                     <StyledBadge
+<<<<<<< HEAD
                       badgeContent={getItemsCount()}
                       //  color="secondary"
+=======
+                    // badgeContent={getItemsCount()}
+                    //  color="secondary"
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                     >
                       <ShoppingCartOutlinedIcon
                         sx={{
@@ -2055,6 +2209,7 @@ function Header(props) {
 
   return (
     <Box>
+<<<<<<< HEAD
       {isLoading &&
         !isSubmitting &&
         !isSearching &&
@@ -2079,6 +2234,8 @@ function Header(props) {
             <CircularProgress size={40} />
           </Box>
         )}
+=======
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
       <Box tabIndex="0">
         <Box
           // tabIndex="-1"

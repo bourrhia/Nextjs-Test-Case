@@ -22,6 +22,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import Backdrop from "@mui/material/Backdrop";
 import CloseIcon from "@mui/icons-material/Close";
 
+<<<<<<< HEAD
 import { useSession } from "next-auth/react";
 
 export const ProdViewUpsm = ({ selectedprd }) => {
@@ -39,6 +40,11 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     console.log("Session or user is undefined");
   }
 
+=======
+//import { useSession } from "next-auth/react";
+
+export const ProdViewUpsm = ({ selectedprd }) => {
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   ////
   const [openBuyNow, setOpenBuyNow] = useState(false);
   const [isNavCheckout, setIsNavCheckout] = useState(false);
@@ -47,12 +53,15 @@ export const ProdViewUpsm = ({ selectedprd }) => {
   const [isNavSignIn, setIsNavSignIn] = useState(false);
   const [checkoutWithoutInsc, setCheckoutWithoutInsc] = useState(false);
 
+<<<<<<< HEAD
   //const clickOpenBuyNow = () => {
 
   //     setOpenBuyNow(true);
 
   // };
 
+=======
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   const handleCloseBuyNow = () => {
     setOpenBuyNow(false);
   };
@@ -148,6 +157,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     },
   ] = useAddUserIdMutation();
 
+<<<<<<< HEAD
   const handleNavCheckout = async (userId) => {
     setIsNavCheckout(true);
     try {
@@ -281,6 +291,8 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     }
   };
 
+=======
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   function CustPaymentOutlinedIcon(props) {
     return (
       <SvgIcon {...props}>
@@ -376,6 +388,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     </Box>
   ));
 
+<<<<<<< HEAD
   const ClickAchatMtnt = () => {
     return (
       <Dialog
@@ -727,6 +740,8 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     );
   };
 
+=======
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   const rightCol = (
     <Box
       sx={{
@@ -1047,13 +1062,21 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                                 <Box
                                   //component="a"
                                   component="button"
+<<<<<<< HEAD
                                   onClick={clickOpenCart}
+=======
+                                  /*  onClick={clickOpenCart}
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                                   disabled={
                                     isLoading ||
                                     isNavCheckout ||
                                     isNavOpenCart ||
                                     isNavSignIn
+<<<<<<< HEAD
                                   }
+=======
+                                  }*/
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                                   sx={{
                                     backgroundColor: "transparent",
                                     border: "none",
@@ -1126,13 +1149,21 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                                   <Box
                                     // component="a"
                                     component="button"
+<<<<<<< HEAD
                                     onClick={clickOpenBuyNow}
+=======
+                                    /* onClick={clickOpenBuyNow}
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                                     disabled={
                                       isLoading ||
                                       isNavCheckout ||
                                       isNavOpenCart ||
                                       isNavSignIn
+<<<<<<< HEAD
                                     }
+=======
+                                    }*/
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                                     sx={{
                                       backgroundColor: "transparent",
                                       border: "none",
@@ -1208,11 +1239,14 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                                   </Box>
                                 </Box>
                               </Box>
+<<<<<<< HEAD
                               <>
                                 {(!session || !session.user) && (
                                   <ClickAchatMtnt />
                                 )}
                               </>
+=======
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
 
                               <Box>
                                 <Box
@@ -2955,7 +2989,11 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                     lineHeight: "20px",
                   }}
                 >
+<<<<<<< HEAD
                   Pays d&rsquo;origibne &rlm; : &lrm;
+=======
+                  Pays origibne &rlm; : &lrm;
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                 </Box>
                 <Box component="span">{selectedprd[0].paysorigibne}</Box>
               </Box>

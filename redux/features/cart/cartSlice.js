@@ -1,6 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+<<<<<<< HEAD
 import { fetchCartSpinner } from "./cartSpinnerAPI";
 import { fetchCartDropdown } from "./cartDropdownAPI";
+=======
+//import { fetchCartSpinner } from "./cartSpinnerAPI";
+//import { fetchCartDropdown } from "./cartDropdownAPI";
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
 //
 import { PURGE } from "redux-persist";
 import { HYDRATE } from "next-redux-wrapper";
@@ -13,16 +18,26 @@ const initialState = {
   // error: null,
 };
 
+<<<<<<< HEAD
 export const cartSpinnerAsync = createAsyncThunk(
+=======
+/*export const cartSpinnerAsync = createAsyncThunk(
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   "cart/fetchCartSpinner",
   async (initialPost) => {
     const response = await fetchCartSpinner(initialPost);
 
     return response.data;
   }
+<<<<<<< HEAD
 );
 
 export const cartDropdownAsync = createAsyncThunk(
+=======
+);*/
+
+/*export const cartDropdownAsync = createAsyncThunk(
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   "cart/fetchCartDropdown",
   async (initialPost, { dispatch }) => {
     const response = await fetchCartDropdown(initialPost);
@@ -32,7 +47,11 @@ export const cartDropdownAsync = createAsyncThunk(
     dispatch(productUpdated(initialPost));
     return response.data;
   }
+<<<<<<< HEAD
 );
+=======
+);*/
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
 
 const cartSlice = createSlice({
   name: "cart",
@@ -77,7 +96,11 @@ const cartSlice = createSlice({
     },
     ////////////////////
   },
+<<<<<<< HEAD
   extraReducers: (builder) => {
+=======
+  /*extraReducers: (builder) => {
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
     builder
       .addCase(cartSpinnerAsync.pending, (state, { meta }) => {
         let index = state.products
@@ -103,6 +126,7 @@ const cartSlice = createSlice({
       .addCase(PURGE, (state) => {
         customEntityAdapter.removeAll(state);
       });
+<<<<<<< HEAD
     /*.addCase(HYDRATE, (state, action) => {
         return {
           ...state,
@@ -110,6 +134,10 @@ const cartSlice = createSlice({
         };
       });*/
   },
+=======
+    
+  },*/
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
 });
 
 export const {

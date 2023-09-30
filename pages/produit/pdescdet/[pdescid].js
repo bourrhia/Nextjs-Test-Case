@@ -160,7 +160,11 @@ export const Prdcompdesc = ({ selprd }) => {
               color: "#282828",
             }}
           >
+<<<<<<< HEAD
             Description de l'article
+=======
+            Description de larticle
+>>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
           </Box>
         </Box>
       </Box>
