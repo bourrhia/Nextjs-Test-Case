@@ -717,7 +717,7 @@ export const AuthForm = () => {
                               paddingBottom: "4px",
                             }}
                           >
-                            S'identifier
+                            S&rsquo;identifier
                           </Box>
                           <Box
                             sx={{

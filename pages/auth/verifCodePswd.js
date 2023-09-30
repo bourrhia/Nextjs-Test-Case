@@ -1210,7 +1210,7 @@ export const VerifCodePswd = () => {
                 textAlign: "center!important",
               }}
             >
-              Conditions d'utilisation
+              Conditions d&rdquo;utilisation
             </Box>
             <Box
               component="span"

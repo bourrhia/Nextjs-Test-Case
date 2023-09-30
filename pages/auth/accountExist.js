@@ -724,7 +724,7 @@ export const AccountExist = () => {
                       textDecoration: "none",
                     }}
                   >
-                    S'inscrire avec une adresse e-mail différente
+                    S&rsquo;inscrire avec une adresse e-mail différente
                   </Box>
                 </Box>
               </Box>

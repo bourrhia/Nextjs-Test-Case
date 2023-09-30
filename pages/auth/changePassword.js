@@ -1408,7 +1408,7 @@ export const SignUpForm = () => {
                   textAlign: "center!important",
                 }}
               >
-                Conditions d'utilisation
+                Conditions d&rsquo;utilisation
               </Box>
               <Box
                 component="span"

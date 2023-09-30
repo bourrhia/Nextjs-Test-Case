@@ -527,7 +527,7 @@ export const VerifyEmailSuccess = () => {
                     maxWidth: "340px",
                   }}
                 >
-                  Ce n'est pas vous&nbsp;?
+                  Ce n&rdquo;est pas vous&nbsp;?
                   <Box
                     //component="a"
                     component="button"
@@ -564,7 +564,7 @@ export const VerifyEmailSuccess = () => {
                         fontSize: "12px",
                       }}
                     >
-                      L'utilisateur actuel est &nbsp;{email}&nbsp;.
+                      L&rdquo;utilisateur actuel est &nbsp;{email}&nbsp;.
                     </Box>
                     &nbsp;Changer de compte
                   </Box>

@@ -2002,8 +2002,8 @@ export const SignUpForm = () => {
                               },
                             }}
                           >
-                            En cliquant sur S'inscrire, vous confirmez avoir lu
-                            et accepté les
+                            En cliquant sur S&rsquo;inscrire, vous confirmez
+                            avoir lu et accepté les
                             <Box
                               component="a"
                               // href="/gp/help/customer/display.html/ref=ox_signin_condition_of_use?ie=UTF8&amp;nodeId=548524"
@@ -2026,7 +2026,7 @@ export const SignUpForm = () => {
                                 lineHeight: "1.5!important",
                               }}
                             >
-                              &nbsp;conditions d'utilisation.
+                              &nbsp;conditions d&rsquo;utilisation.
                             </Box>
                             &nbsp;Veuillez consulter notre
                             <Box
@@ -2302,7 +2302,7 @@ export const SignUpForm = () => {
                   textAlign: "center!important",
                 }}
               >
-                Conditions d'utilisation
+                Conditions d&rdquo;utilisation
               </Box>
               <Box
                 component="span"

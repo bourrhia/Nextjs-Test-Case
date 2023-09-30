@@ -4154,7 +4154,7 @@ export const Checkout = () => {
                                           WebkitTextSizeAdjust: "100%",
                                         }}
                                       >
-                                        Date d'expiration
+                                        Date d&rdquo;expiration
                                       </Box>
                                     </Box>
 

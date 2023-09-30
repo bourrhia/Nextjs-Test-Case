@@ -306,7 +306,8 @@ export const VerifyRequest = () => {
                       fontWeight: 700,
                     }}
                   >
-                    Nous avons envoyé un lien de confirmation à l'adresse &nbsp;
+                    Nous avons envoyé un lien de confirmation à l&rdquo;adresse
+                    &nbsp;
                     {email}.
                   </Box>
                 </Box>
@@ -363,7 +364,7 @@ export const VerifyRequest = () => {
                     }}
                   >
                     Après avoir confirmé votre adresse e-mail, vous pourrez
-                    accéder à votre nouveau compte. L'e-mail expirera dans
+                    accéder à votre nouveau compte. L&rdquo;e-mail expirera dans
                     24&nbsp;heures.
                   </Box>
                 </Box>
@@ -443,7 +444,7 @@ export const VerifyRequest = () => {
                               fontWeight: "bold",
                             }}
                           >
-                            Un problème est survenu pour renvoyer l'email.
+                            Un problème est survenu pour renvoyer l&rdquo;email.
                           </Box>
                         </Box>
                       </Box>
@@ -500,7 +501,7 @@ export const VerifyRequest = () => {
                       cursor: "pointer",
                     }}
                   >
-                    Renvoyer l'e-mail
+                    Renvoyer l&rdquo;e-mail
                   </Box>
                 )}
                 <Box component="br"></Box>

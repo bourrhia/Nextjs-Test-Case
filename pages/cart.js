@@ -420,7 +420,7 @@ export const Cart = () => {
                                 fontWeight: 400,
                               }}
                             >
-                              Se connecter pour finaliser l'achat
+                              Se connecter pour finaliser l&rdquo;achat
                             </Box>
                           </Box>
                         </Box>
@@ -478,7 +478,7 @@ export const Cart = () => {
                                 fontWeight: 400,
                               }}
                             >
-                              Finaliser l'achat sans être inscrit
+                              Finaliser l&rdquo;achat sans être inscrit
                             </Box>
                           </Box>
                         </Box>

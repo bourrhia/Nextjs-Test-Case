@@ -615,7 +615,7 @@ export const SignInForm = () => {
                         color: "#111",
                       }}
                     >
-                      S'identifier
+                      S&rsquo;identifier
                     </Box>
                     <Box
                       sx={{
@@ -1095,7 +1095,7 @@ export const SignInForm = () => {
                                     fontWeight: 500,
                                   }}
                                 >
-                                  S'identifier
+                                  S&rsquo;identifier
                                 </Box>
                               )}
                             </Box>
