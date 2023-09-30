@@ -76,9 +76,7 @@ export default function Home(props) {
           height: "100%",
         }}
       >
-        <Suspense fallback={<CircularProgress />}>
-          <Prdlistupsm1 imgmrv={lgimgmrventes} />
-        </Suspense>
+        <Prdlistupsm1 imgmrv={lgimgmrventes} />
 
         <Prdlistupmd2 imgmrv={lgimgmrventes} />
         <Prdlistupmd3 imgmrv={lgimgmrventes} />

@@ -31,9 +31,7 @@ export const Prodview = ({ prodselec }) => {
           display: { xs: "none", sm: "block", md: "block", lg: "block" },
         }}
       >
-        <Suspense fallback={<CircularProgress />}>
-          <ProdViewUpsm selectedprd={prodselec} />
-        </Suspense>
+        <ProdViewUpsm selectedprd={prodselec} />
       </Box>
     </Box>
   );
