@@ -207,9 +207,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
 
   const clickOpenCart = async (e) => {
     e.preventDefault();
-    //if (!session || !session.user) {
-    //  setOpenBuyNow(true);
-    // } else {
+    
     dispatch(
       productAdded({
         prodId,
@@ -224,13 +222,13 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     );
 
     await handleNavOpenCart();
-    // }
+    
   };
 
   const clickBuyNoInsc = async () => {
     try {
       if (!session || !session.user) {
-        //setOpenBuyNow(false);
+        
         handleCloseBuyNow();
         dispatch(
           productAdded({
@@ -250,15 +248,13 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         if (
           addUserIdIsSuccess ||
           response?.userId
-          // response?.message.includes("User added successfully")
+          
         ) {
-          //console.log("Samedi userId response : ", response);
+          
           await handleNavCheckout(response?.userId);
         }
 
-        // await handleNavCheckout("", true);
-        //setNoInscription(true);*/
-        //await handleNavCheckout("", true);
+        
       }
     } catch (err) {
       console.error(
