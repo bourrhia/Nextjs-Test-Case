@@ -49,8 +49,6 @@ export const Cart = () => {
 
   const { data: session } = useSession();
 
-  
-
   useEffect(() => {
     const handleRouteChangeStart = () => {
       setIsLoading(true);
@@ -123,8 +121,6 @@ export const Cart = () => {
   ] = useAddUserIdMutation();
 
   const clickCheckoutNoInsc = async () => {
-    
-
     try {
       if (!session || !session.user) {
         setOpenDialogCheckout(false);
@@ -353,7 +349,7 @@ export const Cart = () => {
                                 fontWeight: 400,
                               }}
                             >
-                              Se connecter pour finaliser l'achat
+                              Se connecter pour finaliser l&rdquo;achat
                             </Box>
                           </Box>
                         </Box>
@@ -411,7 +407,7 @@ export const Cart = () => {
                                 fontWeight: 400,
                               }}
                             >
-                              Finaliser l'achat sans être inscrit
+                              Finaliser l&rdquo;achat sans être inscrit
                             </Box>
                           </Box>
                         </Box>
@@ -1106,7 +1102,7 @@ export const Cart = () => {
                         // textAlign: "right",
                       }}
                     >
-                      Il n'en reste plus que {itemCart.prodQteeDisp} !
+                      Il n&rdquo;en reste plus que {itemCart.prodQteeDisp} !
                     </Box>
                   </Box>
                 </Box>

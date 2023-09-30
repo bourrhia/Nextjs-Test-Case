@@ -150,10 +150,6 @@ export const Prdlistsm1 = ({ imgmrv }) => {
             }}
           >
             {image.prixAct}&nbsp;{image.prixSymbol}
-<<<<<<< HEAD
-            {image._id}
-=======
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
           </Box>
           {image.red && (
             <Box>

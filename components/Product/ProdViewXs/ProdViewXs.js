@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
-//import { getLgimgmrv } from "../api/getlgimgmrv";
-//import { getSelectedimg } from "../../lib/load_selected_img";
+
 
 import { useRouter } from "next/router";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
@@ -20,8 +19,7 @@ function CustChevronRightIcon(props) {
   );
 }
 export const ProdViewXs = ({ selectedprd }) => {
-  // const { imgmrv } = props;
-  // console.log(selectedprd);
+  
   const router = useRouter();
   let qteemax = 10;
   const [selected, setSelected] = useState(1);
@@ -39,21 +37,7 @@ export const ProdViewXs = ({ selectedprd }) => {
     setSelected(event.target.value);
   };
 
-  /*const handleClick = (e) => {
-    e.preventDefault();
-    //alert("click");
-    router.push(
-      {
-        pathname: "/produit/pdesc/[pdescid]",
-        //   Query: { pdescid: `${pathname}` },
-        query: { pdescid: selectedprd[0].imgNum },
-      },
-      `/produit/pdesc/${selectedprd[0].imgNum}`
-    );
-  };*/
-
-  // If the page is not yet generated, this will be displayed
-  // initially until getStaticProps() finishes running
+  
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
@@ -1570,11 +1554,7 @@ export const ProdViewXs = ({ selectedprd }) => {
                                     display: "inline-block",
                                   }}
                                 >
-<<<<<<< HEAD
                                   Description de l&rsquo;article
-=======
-                                  Description de larticle
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                                 </Box>
                               </Box>
                               <CustChevronRightIcon

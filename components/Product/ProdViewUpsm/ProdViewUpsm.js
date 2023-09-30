@@ -26,19 +26,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useSession } from "next-auth/react";
 
 export const ProdViewUpsm = ({ selectedprd }) => {
-  // const { imgmrv } = props;
-  // console.log(selectedprd[0].prixAct);
-  //console.log(selectedprd);
+  
 
   const { data: session } = useSession();
 
-  if (session && session.user) {
-    console.log("session userid : ", session.user.id);
-    //console.log("session : ", session);
-    // console.log("session user: ", session.user);
-  } else {
-    console.log("Session or user is undefined");
-  }
+  
 
 =======
 //import { useSession } from "next-auth/react";

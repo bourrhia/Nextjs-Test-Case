@@ -1,4 +1,3 @@
-//import React, { useState, useEffect } from "react";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -7,22 +6,19 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import SvgIcon, { SvgIconProps } from "@mui/material/SvgIcon";
 import { getSelectedimg } from "../../../lib/load_selected_img";
 
-function CustArrowBackIosNewIcon(props) {
-  return (
-    <SvgIcon {...props}>
-      <ArrowBackIosNewIcon />
-    </SvgIcon>
-  );
-}
-
 export const Prdcompdesc = ({ selprd }) => {
   const router = useRouter();
-  // const { pdescid } = router.query;
 
-  // If the page is not yet generated, this will be displayed
-  // initially until getStaticProps() finishes running
   if (router.isFallback) {
     return <div>Loading...</div>;
+  }
+
+  function CustArrowBackIosNewIcon(props) {
+    return (
+      <SvgIcon {...props}>
+        <ArrowBackIosNewIcon />
+      </SvgIcon>
+    );
   }
 
   const handleClick = (e) => {
@@ -160,11 +156,7 @@ export const Prdcompdesc = ({ selprd }) => {
               color: "#282828",
             }}
           >
-<<<<<<< HEAD
-            Description de l'article
-=======
-            Description de larticle
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
+            Description de l&rdquo;article
           </Box>
         </Box>
       </Box>

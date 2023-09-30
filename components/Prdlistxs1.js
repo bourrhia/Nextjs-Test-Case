@@ -3,15 +3,10 @@ import Box from "@mui/material/Box";
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
 import Getcattitle from "./Getcattitle";
-<<<<<<< HEAD
-=======
-import Link from "next/link";
 import { useRouter } from "next/router";
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
 
 export const Prdlistxs1 = ({ imgmrv }) => {
-  // const filteredImg = imgmrv.filter((image, i) => i < 4);
-  //const renderedImg = filteredImg.map((image) => (
+  
 <<<<<<< HEAD
 =======
   const router = useRouter();
@@ -25,7 +20,7 @@ export const Prdlistxs1 = ({ imgmrv }) => {
     }
   };
 
-  console.log("vendredi imgmrv :", imgmrv);
+  
 >>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   const renderedImg = imgmrv.map((image) => (
     <Box
