@@ -6,9 +6,8 @@ import SvgIcon from "@mui/material/SvgIcon";
 import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined";
 import LoopIcon from "@mui/icons-material/Loop";
 
-import Link from "next/link";
 import { useRouter } from "next/router";
-//
+
 import { useDispatch } from "react-redux";
 import { productAdded } from "../../../redux/features/cart/cartSlice";
 import { useAddUserIdMutation } from "../../../redux/features/api/apiSlice";
@@ -31,7 +30,6 @@ export const ProdViewUpsm = ({ selectedprd }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isNavOpenCart, setIsNavOpenCart] = useState(false);
   const [isNavSignIn, setIsNavSignIn] = useState(false);
-  const [checkoutWithoutInsc, setCheckoutWithoutInsc] = useState(false);
 
   const handleCloseBuyNow = () => {
     setOpenBuyNow(false);
@@ -126,7 +124,6 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         pathname: "/checkout",
         query: {
           userId: userId,
-          //noInscription: noInscription,
         },
       });
     } catch (error) {
@@ -153,8 +150,6 @@ export const ProdViewUpsm = ({ selectedprd }) => {
           prodQteeDisp,
         })
       );
-
-      //console.log("session userid : ", session.user.id);
       if (session.user.id) {
         await handleNavCheckout(session.user.id);
       }
@@ -168,7 +163,6 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         pathname: "/cart",
       });
     } catch (error) {
-      // Handle any errors that might occur during navigation
     } finally {
       setIsNavOpenCart(false);
     }
@@ -180,8 +174,11 @@ export const ProdViewUpsm = ({ selectedprd }) => {
       await router.push({
         pathname: "/auth/authForm",
       });
-    } catch (error) {
-      // Handle any errors that might occur during navigation
+    } catch (err) {
+      console.error(
+        "Un probleme est survenu pour acheter sans être inscrit: ",
+        err
+      );
     } finally {
       setIsNavSignIn(false);
       handleCloseBuyNow();
@@ -205,13 +202,11 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     );
 
     await handleNavOpenCart();
-    // }
   };
 
   const clickBuyNoInsc = async () => {
     try {
       if (!session || !session.user) {
-        //setOpenBuyNow(false);
         handleCloseBuyNow();
         dispatch(
           productAdded({
@@ -226,10 +221,8 @@ export const ProdViewUpsm = ({ selectedprd }) => {
           })
         );
         const response = await addUserId().unwrap();
-        //console.log("Samedi userId response : ", response);
 
         if (addUserIdIsSuccess || response?.userId) {
-          //console.log("Samedi userId response : ", response);
           await handleNavCheckout(response?.userId);
         }
       }
