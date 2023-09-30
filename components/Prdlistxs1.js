@@ -6,9 +6,6 @@ import Getcattitle from "./Getcattitle";
 import { useRouter } from "next/router";
 
 export const Prdlistxs1 = ({ imgmrv }) => {
-  
-<<<<<<< HEAD
-=======
   const router = useRouter();
 
   const showProduct = async (imgNum) => {
@@ -20,19 +17,14 @@ export const Prdlistxs1 = ({ imgmrv }) => {
     }
   };
 
-  
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   const renderedImg = imgmrv.map((image) => (
     <Box
       component="a"
       key={image.imgNum}
-<<<<<<< HEAD
-=======
       onClick={(e) => {
         e.preventDefault();
         showProduct(image.imgNum);
       }}
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
       sx={{
         cursor: "pointer",
 

@@ -8,35 +8,20 @@ import { useGetOrderByIdQuery } from "../redux/features/api/apiSlice";
 import { useRouter } from "next/router";
 import CircularProgress from "@mui/material/CircularProgress";
 
-//const { ObjectId } = require("mongodb");
-export default function Orders() {
-  //const { orderPkey } = props;
-
-  const router = useRouter();
-  const {
-    orderPkey,
-    modePaiement,
-    orderExDelivery,
-    methodeLiv,
-    prenomLiv,
-    nomLiv,
-    adrPrcLiv1,
-    adrPrcLiv2,
-    villeLiv,
-    regionLiv,
-    codePostalLiv,
-    expediePar,
-  } = router.query;
-
-  //const userAdrLiv = JSON.parse(router.query.userAdrLiv);
-  //const userAdrLiv = JSON.parse(decodeURIComponent(router.query.userAdrLiv));
-
-  //const orderPrkey = new ObjectId(orderPkey);
-
-  if (!orderPkey) {
-    return null;
-  }
-
+function OrderDetails({
+  orderPkey,
+  modePaiement,
+  orderExDelivery,
+  methodeLiv,
+  prenomLiv,
+  nomLiv,
+  adrPrcLiv1,
+  adrPrcLiv2,
+  villeLiv,
+  regionLiv,
+  codePostalLiv,
+  expediePar,
+}) {
   const {
     data: order,
     isFetching: orderFetching,
@@ -1049,5 +1034,44 @@ export default function Orders() {
         </Box>
       ) : null}
     </>
+  );
+}
+
+export default function Orders() {
+  const router = useRouter();
+  const {
+    orderPkey,
+    modePaiement,
+    orderExDelivery,
+    methodeLiv,
+    prenomLiv,
+    nomLiv,
+    adrPrcLiv1,
+    adrPrcLiv2,
+    villeLiv,
+    regionLiv,
+    codePostalLiv,
+    expediePar,
+  } = router.query;
+
+  if (!orderPkey) {
+    return null;
+  }
+
+  return (
+    <OrderDetails
+      orderPkey={orderPkey}
+      modePaiement={modePaiement}
+      orderExDelivery={orderExDelivery}
+      methodeLiv={methodeLiv}
+      prenomLiv={prenomLiv}
+      nomLiv={nomLiv}
+      adrPrcLiv1={adrPrcLiv1}
+      adrPrcLiv2={adrPrcLiv2}
+      villeLiv={villeLiv}
+      regionLiv={regionLiv}
+      codePostalLiv={codePostalLiv}
+      expediePar={expediePar}
+    />
   );
 }

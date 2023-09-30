@@ -21,9 +21,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContentText from "@mui/material/DialogContentText";
 import Backdrop from "@mui/material/Backdrop";
 import CloseIcon from "@mui/icons-material/Close";
-
-<<<<<<< HEAD
 import { useSession } from "next-auth/react";
+
+
 
 export const ProdViewUpsm = ({ selectedprd }) => {
   
@@ -32,12 +32,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
 
   
 
-=======
-//import { useSession } from "next-auth/react";
-
-export const ProdViewUpsm = ({ selectedprd }) => {
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
-  ////
+  
   const [openBuyNow, setOpenBuyNow] = useState(false);
   const [isNavCheckout, setIsNavCheckout] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,15 +40,6 @@ export const ProdViewUpsm = ({ selectedprd }) => {
   const [isNavSignIn, setIsNavSignIn] = useState(false);
   const [checkoutWithoutInsc, setCheckoutWithoutInsc] = useState(false);
 
-<<<<<<< HEAD
-  //const clickOpenBuyNow = () => {
-
-  //     setOpenBuyNow(true);
-
-  // };
-
-=======
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   const handleCloseBuyNow = () => {
     setOpenBuyNow(false);
   };

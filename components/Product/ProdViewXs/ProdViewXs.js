@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
 
-
 import { useRouter } from "next/router";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -19,7 +18,6 @@ function CustChevronRightIcon(props) {
   );
 }
 export const ProdViewXs = ({ selectedprd }) => {
-  
   const router = useRouter();
   let qteemax = 10;
   const [selected, setSelected] = useState(1);
@@ -37,7 +35,6 @@ export const ProdViewXs = ({ selectedprd }) => {
     setSelected(event.target.value);
   };
 
-  
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
@@ -1611,11 +1608,7 @@ export const ProdViewXs = ({ selectedprd }) => {
                                   Lecteur optique : Graveur DVD. Réseau :
                                   Integrated Realtek LOM + Clé USB Wifi. - 1 x
                                   HDMI. MonsieurCyberMan Reprend &amp; Répare
-<<<<<<< HEAD
-                                  Vos Vieux PC : 56350 Béganne - France. Les
-=======
-                                  Vos Vieux PC :-. 56350 Béganne - France. Les
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
+                                  Vos Vieux PC . 56350 Béganne - France. Les
                                   Fosses Rouges. Nos coordonnées.
                                 </Box>
                               </Box>
