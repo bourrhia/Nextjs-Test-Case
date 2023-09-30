@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import CircularProgress from "@mui/material/CircularProgress";
 
 //const { ObjectId } = require("mongodb");
-export default function orders() {
+export default function Orders() {
   //const { orderPkey } = props;
 
   const router = useRouter();

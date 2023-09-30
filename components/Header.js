@@ -48,7 +48,8 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Image from "next/image";
 
 import Badge, { BadgeProps } from "@mui/material/Badge";
-
+import { useSelector } from "react-redux";
+import { signOut, useSession } from "next-auth/react";
 import Logout from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
 import Menu, { MenuProps } from "@mui/material/Menu";
@@ -56,11 +57,17 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useRouter } from "next/router";
-
+import { products } from "../data/product";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Paper from "@mui/material/Paper";
-
+import { useGetAllProductsQuery } from "../redux/features/api/apiSlice";
+import { useGetProductsBySearchQuery } from "../redux/features/api/apiSlice";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import Fuse from "fuse.js";
 import CircularProgress from "@mui/material/CircularProgress";
+import useSearchTerm from "../hooks/useSearchTerm";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -273,13 +280,261 @@ function Header(props) {
 
   const menuListRef = useRef(null);
 
+  const fuzzySearchSchema = yup.object().shape({
+    searchInput: yup
+      .string("Le mot à rechercher doit être une chaîne de caractères")
+      //.max(25, "Le prénom a un maximum de 25 caractères")
+      //.required("Veuillez saisir votre mot a rechercher")
+      .nullable(),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { isSubmitting, errors },
+  } = useForm({
+    resolver: yupResolver(fuzzySearchSchema),
+    mode: "onBlur",
+    reValidateMode: "onBlur",
+  });
+
+  const handleClickAway = () => {
+    setMenuOpen(false);
+  };
+
+  const {
+    data: allProducts,
+    // isFetching: allProductFetching,
+    isLoading: allProductLoading,
+    isSuccess: allProductSuccess,
+    isError: allProductIsError,
+    error: allProductError,
+  } = useGetAllProductsQuery();
+
+  const watchSearchInput = watch("searchInput");
+
+  const {
+    data: searchProducts,
+    // isFetching: allProductFetching,
+    isLoading: searchProductsLoading,
+    isSuccess: searchProductsSuccess,
+    isError: searchProductsIsError,
+    error: searchProductsError,
+  } = useGetProductsBySearchQuery(watchSearchInput);
+
+  const handleNavSearchResults = async (searchPrdts) => {
+    try {
+      // console.log("searchPrdts : ", searchPrdts);
+      await router.push({
+        pathname: "/fuzzySearch/searchResults", // Replace with the actual page path
+        query: { allSearchProducts: JSON.stringify(searchPrdts) },
+        // query: { allSearchProducts: searchPrdts }, // Pass search results as a query parameter
+      });
+    } catch (error) {
+      // Handle any errors that might occur during navigation
+    } finally {
+      // setisNavResetPswd(false);
+    }
+  };
+
   ///////////////  ADD  /////////////////////////////
+
+  const storedSearchTerm = localStorage.getItem("searchTerm");
+  const isSpecificPage = router.pathname === "/fuzzySearch/searchResults";
+  useEffect(() => {
+    if (isSpecificPage) {
+      if (storedSearchTerm) {
+        setValue("searchInput", storedSearchTerm); // Set the input field value
+
+        //  setSearchTerm(storedSearchTerm);
+      } else {
+        setValue("searchInput", ""); // Set the input field value to null or an empty string
+
+        // setSearchTerm(""); // Update searchTerm state to null or an empty string
+        localStorage.removeItem("searchTerm");
+      }
+    }
+
+    const handlePopState = () => {
+      if (!isSpecificPage) {
+        //  setSearchTerm(""); // Update searchTerm state to null or an empty string
+        setValue("searchInput", ""); // Set the input field value to null or an empty string
+
+        localStorage.removeItem("searchTerm");
+      }
+    };
+
+    document.addEventListener("popstate", handlePopState);
+
+    return () => {
+      document.removeEventListener("popstate", handlePopState);
+    };
+  }, [storedSearchTerm]);
+
+  useEffect(() => {
+    const handleRouteChangeStart = () => {
+      setIsLoading(true);
+    };
+    const handleRouteChange = () => {
+      if (!isSpecificPage) {
+        // setSearchTerm(""); // Update searchTerm state to null or an empty string
+        setValue("searchInput", "");
+        // setMenuOpen(false);
+        localStorage.removeItem("searchTerm");
+      } else {
+        //  setSearchTerm(storedSearchTerm);
+        setValue("searchInput", storedSearchTerm);
+        // setMenuOpen(false);
+      }
+      // handleClickAway();
+      setIsLoading(false);
+    };
+
+    // Add a listener to watch for route changes
+    router.events.on("routeChangeComplete", handleRouteChange);
+    router.events.on("routeChangeStart", handleRouteChangeStart);
+
+    // Clean up the listener when the component unmounts
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+      router.events.off("routeChangeStart", handleRouteChangeStart);
+    };
+  }, [router.pathname]);
 
   //////////////////////// END ADD /////////////////////////////////////////////
 
-  ///////////////////////////////////////////////////////
+  const onSubmit = async (data, event) => {
+    event.preventDefault();
+
+    let searchTermInput = data.searchInput;
+
+    setSearchTerm(searchTermInput);
+    setMenuOpen(false);
+
+    const canSearch = [searchTermInput].every(Boolean);
+    if (canSearch) {
+      setIsSearching(true);
+      try {
+        if (searchProductsSuccess && !searchProductsIsError) {
+          if (searchProducts) {
+            await handleNavSearchResults(searchProducts);
+          }
+        }
+      } catch (err) {
+        console.error("Un probleme est survenu pour rechercher: ", err);
+      } finally {
+        setIsSearching(false);
+        handleClickAway();
+      }
+    }
+  };
+
+  useEffect(() => {
+    // if (searchTerm.trim() === "") {
+    if (!searchTerm || searchTerm.trim() === "") {
+      setSearchResults([]);
+      return;
+    }
+
+    setMenuOpen(true);
+
+    /*const options = {
+          keys: [
+            { name: "firstLetter", weight: 0.8 }, // Add weight to prioritize firstLetter
+            "productName",
+          ],
+          includeScore: true,
+          threshold: 0.2, // Adjust the threshold for matching
+        };
+    
+         // Create a new array with a 'firstLetter' field based on your data
+        const dataWithFirstLetter = allProducts.map((item) => ({
+          ...item,
+          firstLetter: item.productName.charAt(0).toUpperCase(),
+        }));
+    
+        const fuse = new Fuse(dataWithFirstLetter, options);
+    
+        const fuzzyResults = fuse.search(searchTerm);
+        const allSearchResults = fuzzyResults.map((result) => result.item);
+    
+        setSearchResults(allSearchResults);*/
+
+    ///////////////////////////////////////////////////////
+
+    const options = {
+      keys: ["productName"], // Specify the keys you want to search on
+      includeScore: true,
+    };
+    const fuse = new Fuse(allProducts, options);
+
+    //const filterResults = (searchTerm) => {
+    //  const regex = new RegExp(`^${searchTerm}`, "i"); // 'i' for case-insensitive matching
+    //  const filteredData = allProducts.filter((item) =>
+    //   regex.test(item.productName)
+    //  );
+    // return filteredData;
+    // };
+
+    const filterResults = (searchTerm) => {
+      // Check if fuse is properly initialized and allProducts data is available
+      if (!fuse || !allProducts || allProducts.length === 0) {
+        return []; // Return an empty array when data is missing or fuse is not initialized
+      }
+      // Check if searchTerm is undefined or an empty string
+      if (!searchTerm || searchTerm.trim() === "") {
+        return []; // Return an empty array when searchTerm is invalid
+      }
+      const results = fuse.search(searchTerm);
+
+      // Filter the results to include only items where the name starts with the search term
+      const filteredResults = results.filter((result) =>
+        result.item.productName.startsWith(searchTerm)
+      );
+
+      return filteredResults.map((result) => result.item);
+    };
+
+    const allSearchResults = filterResults(searchTerm);
+    setSearchResults(allSearchResults);
+    //
+    // setSelectedIndex(null);
+  }, [searchTerm]);
+
+  // Function to remove duplicates
+  const removeDuplicates = (results) => {
+    const seen = new Set();
+    return results.filter((result) => {
+      if (!seen.has(result.productName)) {
+        seen.add(result.productName);
+        return true;
+      }
+      return false;
+    });
+  };
+
+  const uniqueSearchResults = removeDuplicates(searchResults);
+
+  const handleMouseEnter = (index) => {
+    const selectedResults = searchResults[index];
+
+    // setValue("searchInput", selectedResults.productName);
+    // setSelectedIndex(index);
+    menuListRef.current.children[index].focus();
+  };
 
   ///////////////////////////////////////////////////
+
+  const handleListItemClick = (index) => {
+    // setSelectedResultIndex(index);
+    // setSelectedIndex(index);
+    const selectedResults = uniqueSearchResults[index];
+
+    setValue("searchInput", selectedResults.productName);
+    // setValue('searchTerm', options[index]);
+  };
 
   const handleNavHome = async () => {
     // setIsNavHome(true);
@@ -295,11 +550,113 @@ function Header(props) {
     }
   };
 
+  const handleOpenCart = async (e) => {
+    e.preventDefault();
+    setIsNavOpenCart(true);
+
+    try {
+      await router.push({
+        pathname: "/cart",
+      });
+    } catch (error) {
+      // Handle any errors that might occur during navigation
+    } finally {
+      setIsNavOpenCart(false);
+    }
+  };
+
+  const handleOnClickSignIn = async (e) => {
+    e.preventDefault();
+    setIsOnClickSignIn(true);
+    try {
+      await router.push({
+        pathname: "/auth/authForm",
+      });
+    } catch (error) {
+      // Handle any errors that might occur during navigation
+    } finally {
+      setIsOnClickSignIn(false);
+    }
+  };
+
+  const handleOnClickSignUp = async (e) => {
+    e.preventDefault();
+    setIsOnClickSignUp(true);
+
+    try {
+      await router.push({
+        pathname: "/auth/signup",
+      });
+    } catch (error) {
+      // Handle any errors that might occur during navigation
+    } finally {
+      setIsOnClickSignUp(false);
+    }
+  };
+
+  const handleListKeyDown = (event) => {
+    console.log("Vendredi  event.key :", event.key);
+    if (event.key === "Tab") {
+      event.preventDefault();
+      setMenuOpen(false);
+    } else if (event.key === "Escape") {
+      setMenuOpen(false);
+    }
+  };
+
+  const handleResultArrowKeyPress = (e, index) => {
+    if (e.key === "ArrowUp") {
+      if (index > 0) {
+        // Set the value before changing the selectedResultIndex
+        setValue("searchInput", uniqueSearchResults[index - 1].productName);
+        // setSelectedResultIndex(index - 1);
+      } else {
+        // If at the first item, set the value to the last item
+        setValue(
+          "searchInput",
+          uniqueSearchResults[uniqueSearchResults.length - 1].productName
+        );
+        // setSelectedResultIndex(searchResults.length - 1);
+      }
+    } else if (
+      e.key === "ArrowDown" &&
+      index < uniqueSearchResults.length - 1
+    ) {
+      // Set the value before changing the selectedResultIndex
+      setValue("searchInput", uniqueSearchResults[index + 1].productName);
+      //setSelectedResultIndex(index + 1);
+    } else if (
+      e.key === "ArrowDown" &&
+      index === uniqueSearchResults.length - 1
+    ) {
+      // If at the last item, wrap around to the first item
+      setValue("searchInput", uniqueSearchResults[0].productName);
+      //  setSelectedResultIndex(0);
+    } else if (e.key === "Enter" && index >= 0) {
+      // Select the result on Enter key press
+      const selectedResults = uniqueSearchResults[index];
+
+      setValue("searchInput", selectedResults.productName); // Update the input value
+      //  setSelectedResultIndex(-1); // Reset selection
+    }
+  };
+
+  //////////////////////////////////////////////////////
+
+  const cart = useSelector((state) => state.cart.products);
+
+  // Getting the count of items
+  const getItemsCount = () => {
+    return cart.reduce((accumulator, item) => accumulator + item.prodQtee, 0);
+  };
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   // Add session infos
+
+  const { data: session } = useSession();
 
   ///////////
 
@@ -311,6 +668,12 @@ function Header(props) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleSignOut = async (event) => {
+    event.preventDefault();
+
+    await signOut({ redirect: false });
   };
 
   ///////////
@@ -826,12 +1189,12 @@ function Header(props) {
                     e.preventDefault();
                     handleNavHome();
                   }}
-                  /*disabled={
+                  disabled={
                     isLoading ||
                     isNavOpenCart ||
                     isOnClickSignUp ||
                     isOnClickSignIn
-                  }*/
+                  }
                   sx={{
                     display: "block",
                     overflow: "hidden",
@@ -934,11 +1297,7 @@ function Header(props) {
                               autoCorrect="off"
                               spellCheck="false"
                               autoComplete="off"
-<<<<<<< HEAD
                               {...register("searchInput")}
-=======
-                              // {...register("searchInput")}
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                               //value={searchTerm}
                               onChange={(e) =>
                                 //setSelectedResultIndex(-1)
@@ -979,6 +1338,196 @@ function Header(props) {
                             </StyledSearchIcon>
                           </Box>
                         </Box>
+
+                        <Box
+                          // tabIndex="0"
+                          sx={{
+                            position: "relative",
+                            display: "block",
+                            // borderCollapse: "collapse",
+                            //  borderSpacing: 0,
+                            // textIndent: "initial",
+                            // whiteSpace: "nowrap",
+                            // lineHeight: 1,
+                            fontSize: "14px",
+                            color: "#333",
+                            textAlign: "left",
+                            WebkitTextSizeAdjust: "100%",
+                          }}
+                        >
+                          <ClickAwayListener onClickAway={handleClickAway}>
+                            <Paper
+                              elevation={3}
+                              sx={{
+                                position: "absolute",
+                              }}
+                            >
+                              <MenuList
+                                id="simple-menu"
+                                //autoFocusItem={true}
+                                onKeyDown={handleListKeyDown}
+                                ref={menuListRef} // Reference to the MenuList
+                                variant="menu"
+                                sx={{
+                                  width: "569px",
+                                  // display: "block",
+                                  minWidth: "300px",
+                                  cursor: "default",
+                                  background: "#fff",
+                                  border: "1px solid #aaa !important",
+                                  MozBoxShadow: "2px 2px 5px rgba(0,0,0,0.2)",
+                                  boxShadow: "2px 2px 5px rgba(0,0,0,0.2)",
+                                  MozBorderRadius: "3px 0 3px 3px",
+                                  WebkitBorderRadius: "3px 0 3px 3px",
+                                  borderRadius: "3px 0 3px 3px",
+                                  zIndex: 9999,
+                                  // opacity: 0,
+                                  // visibility: "hidden",
+                                  MozTransition:
+                                    "visibility 0s linear .1s,opacity .1s linear",
+                                  WebkitTransition:
+                                    "visibility 0s linear .1s,opacity .1s linear",
+                                  OTransition:
+                                    "visibility 0s linear .1s,opacity .1s linear",
+                                  transition:
+                                    "visibility 0s linear .1s,opacity .1s linear",
+                                  listStyle: "none",
+                                  outline: 0,
+                                  padding: "2px",
+                                  marginLeft: "-1px",
+                                  position: "absolute",
+                                  top: "-1px !important",
+                                  left: "1px !important",
+                                  margin: 0,
+                                  // borderCollapse: "collapse",
+                                  //  borderSpacing: 0,
+                                  // textIndent: "initial",
+                                  // whiteSpace: "nowrap",
+                                  //  lineHeight: 1,
+                                  fontSize: "14px",
+                                  color: "#333",
+                                  textAlign: "left",
+                                  //
+                                  display: isMenuOpen ? "block" : "none",
+                                }}
+                                // style={{
+                                //  display: isMenuOpen ? "block" : "none",
+                                // }}
+                              >
+                                {isMenuOpen &&
+                                  uniqueSearchResults.map((product, i) => (
+                                    <MenuItem
+                                      tabIndex="0"
+                                      key={i}
+                                      //ref={menuListRef}
+                                      onClick={() => handleListItemClick(i)}
+                                      onKeyDown={(e) =>
+                                        handleResultArrowKeyPress(e, i)
+                                      }
+                                      onMouseEnter={() => handleMouseEnter(i)}
+                                      sx={{
+                                        // margin: 0,
+                                        // padding: 0,
+                                        width: "100%",
+                                      }}
+                                    >
+                                      <Box
+                                        component="a"
+                                        role="option"
+                                        sx={{
+                                          textDecoration: "none",
+                                          display: "block",
+                                          minHeight: 0,
+                                          whiteSpace: "normal",
+                                          cursor: "pointer",
+                                          color: "#333 !important",
+                                          lineHeight: "26px",
+                                          padding: "1px 7px",
+                                          fontWeight: "bold !important",
+                                        }}
+                                      >
+                                        <Box
+                                          component="b"
+                                          sx={{
+                                            fontWeight: "normal",
+                                            color: "#333",
+                                            whiteSpace: "normal",
+                                            cursor: "pointer",
+                                            lineHeight: "26px",
+                                          }}
+                                        >
+                                          {product.productName}
+                                        </Box>
+                                      </Box>
+                                    </MenuItem>
+                                  ))}
+                              </MenuList>
+                            </Paper>
+                          </ClickAwayListener>
+                          {/*
+                          <Box
+                            component="ul"
+                            // tabindex="-1"
+                            //tabIndex="0" // Make the container focusable
+                            role="listbox"
+                            // onKeyDown={handleKeyDown} // Handle arrow key navigation
+                            // onFocus={handleFocus}
+                            //ref={ulRef}
+                            ref={listElmRef}
+                            sx={{
+                              width: "569px",
+                              display: "block",
+                              minWidth: "300px",
+                              cursor: "default",
+                              background: "#fff",
+                              border: "1px solid #aaa !important",
+                              MozBoxShadow: "2px 2px 5px rgba(0,0,0,0.2)",
+                              boxShadow: "2px 2px 5px rgba(0,0,0,0.2)",
+                              MozBorderRadius: "3px 0 3px 3px",
+                              WebkitBorderRadius: "3px 0 3px 3px",
+                              borderRadius: "3px 0 3px 3px",
+                              zIndex: 9999,
+                              // opacity: 0,
+                              // visibility: "hidden",
+                              // MozTransition:
+                              //   "visibility 0s linear .1s,opacity .1s linear",
+                              // WebkitTransition:
+                              //  "visibility 0s linear .1s,opacity .1s linear",
+                              // OTransition:
+                              //  "visibility 0s linear .1s,opacity .1s linear",
+                              // transition:
+                              //  "visibility 0s linear .1s,opacity .1s linear",
+                              listStyle: "none",
+                              outline: 0,
+                              padding: "2px",
+                              marginLeft: "-1px",
+                              position: "absolute",
+                              top: "-1px !important",
+                              left: "1px !important",
+                              margin: 0,
+                              // borderCollapse: "collapse",
+                              //  borderSpacing: 0,
+                              // textIndent: "initial",
+                              // whiteSpace: "nowrap",
+                              //  lineHeight: 1,
+                              fontSize: "14px",
+                              color: "#333",
+                              textAlign: "left",
+                              //
+                              //overflowY: "scroll",
+                              overflowY: "scroll",
+                              maxHeight: "200px",
+
+                              //  scrollBehavior:
+                              //    "smooth" ,
+                              //  overflow:
+                              //   "hidden" ,
+                            }}
+                          >
+                            {renderPrdtList}
+                          </Box> 
+                          */}
+                        </Box>
                       </Box>
                       <Box
                         component="td"
@@ -993,11 +1542,7 @@ function Header(props) {
                       >
                         <Box
                           component="input"
-<<<<<<< HEAD
                           disabled={isLoading || isSubmitting || isSearching}
-=======
-                          //disabled={isLoading || isSubmitting || isSearching}
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                           type="submit"
                           value="Rechercher"
                           sx={(theme) => ({
@@ -1057,7 +1602,6 @@ function Header(props) {
                             fill: "#fff",
                           }}
                         ></SearchIcon>
-<<<<<<< HEAD
 
                         {(isSubmitting || isSearching) && (
                           <Box
@@ -1078,8 +1622,6 @@ function Header(props) {
                             <CircularProgress size={40} />
                           </Box>
                         )}
-=======
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                       </Box>
                     </Box>
                   </Box>
@@ -1168,7 +1710,6 @@ function Header(props) {
               height: "100%",
             }}
           >
-<<<<<<< HEAD
             {session ? (
               <Box>
                 <Button
@@ -1266,67 +1807,6 @@ function Header(props) {
                     isOnClickSignUp ||
                     isOnClickSignIn
                   }
-=======
-            <Box
-              component="span"
-              sx={{
-                paddingRight: "5px",
-                color: "#000",
-                FontSize: "12px",
-                whiteSpace: "nowrap",
-                display: "inline-block",
-                padding: "5px 17px 16px 10px",
-                border: "1px solid #fff",
-                borderWidth: "2px 1px 0",
-                textDecoration: "none",
-                position: "relative",
-                left: "-10px",
-              }}
-            >
-              <Typography variant="caption text">
-                Bienvenue&nbsp;!&nbsp;
-              </Typography>
-              <Box
-                // component="a"
-                component="button"
-                // onClick={handleOnClickSignIn}
-                /* disabled={
-                    isLoading ||
-                    isNavOpenCart ||
-                    isOnClickSignUp ||
-                    isOnClickSignIn
-                  }*/
-                sx={{
-                  textDecoration: "underline",
-                  color: "#0654ba",
-                  cursor: "pointer",
-                  //
-                  backgroundColor: "transparent",
-                  border: "none",
-                  outline: 0,
-                }}
-              >
-                <Typography variant="caption text">Se Connecter</Typography>
-              </Box>
-              &nbsp;
-              <Box
-                component="span"
-                sx={{
-                  color: "#000",
-                }}
-              >
-                ou&nbsp;
-                <Box
-                  //component="a"
-                  component="button"
-                  //  onClick={handleOnClickSignUp}
-                  /*disabled={
-                      isLoading ||
-                      isNavOpenCart ||
-                      isOnClickSignUp ||
-                      isOnClickSignIn
-                    }*/
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                   sx={{
                     textDecoration: "underline",
                     color: "#0654ba",
@@ -1337,7 +1817,6 @@ function Header(props) {
                     outline: 0,
                   }}
                 >
-<<<<<<< HEAD
                   <Typography variant="caption text">Se Connecter</Typography>
                 </Box>
                 &nbsp;
@@ -1368,22 +1847,11 @@ function Header(props) {
                       outline: 0,
                     }}
                   >
-                    <Typography variant="caption text">
-                      S&rsquo;incsrire
-                    </Typography>
+                    <Typography variant="caption text"> S'incsrire</Typography>
                   </Box>
                 </Box>
               </Box>
             )}
-=======
-                  <Typography variant="caption text">
-                    {" "}
-                    S&rsquo;incsrire
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
           </Box>
         </Box>
         <Box
@@ -1442,22 +1910,13 @@ function Header(props) {
               >
                 <Box
                   component="button"
-<<<<<<< HEAD
                   onClick={handleOnClickSignIn}
                   disabled={
-=======
-                  // onClick={handleOnClickSignIn}
-                  /*disabled={
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                     isLoading ||
                     isNavOpenCart ||
                     isOnClickSignUp ||
                     isOnClickSignIn
-<<<<<<< HEAD
                   }
-=======
-                  }*/
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                   sx={{
                     padding: "3px 17px 2px",
                     marginRight: "4px",
@@ -1538,22 +1997,13 @@ function Header(props) {
                 <Box
                   //component="a"
                   component="button"
-<<<<<<< HEAD
                   onClick={handleOpenCart}
                   disabled={
-=======
-                  //onClick={handleOpenCart}
-                  /*disabled={
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                     isLoading ||
                     isNavOpenCart ||
                     isOnClickSignUp ||
                     isOnClickSignIn
-<<<<<<< HEAD
                   }
-=======
-                  }*/
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                   sx={{
                     // padding: "3px 10px 2px",
                     padding: 0,
@@ -1577,13 +2027,8 @@ function Header(props) {
                 >
                   <IconButton aria-label="cart">
                     <StyledBadge
-<<<<<<< HEAD
                       badgeContent={getItemsCount()}
                       //  color="secondary"
-=======
-                    // badgeContent={getItemsCount()}
-                    //  color="secondary"
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                     >
                       <ShoppingCartOutlinedIcon
                         sx={{
@@ -1608,7 +2053,6 @@ function Header(props) {
 
   return (
     <Box>
-<<<<<<< HEAD
       {isLoading &&
         !isSubmitting &&
         !isSearching &&
@@ -1633,8 +2077,6 @@ function Header(props) {
             <CircularProgress size={40} />
           </Box>
         )}
-=======
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
       <Box tabIndex="0">
         <Box
           // tabIndex="-1"

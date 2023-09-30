@@ -1,4 +1,3 @@
-//import * as React from "react";
 import React, { Suspense } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -20,22 +19,8 @@ import Allprdxs2 from "../components/Allprdxs2";
 import Prdselecxs1 from "../components/Prdselecxs1";
 import CircularProgress from "@mui/material/CircularProgress";
 
-//
-
-import { useSession } from "next-auth/react";
-
 export default function Home(props) {
   const { lgimgmrventes, mdimgmrventes, oneimg } = props;
-
-  /* const { data: session } = useSession();
-
-  if (session && session.user) {
-    console.log("email from index : ", session.user.email);
-    console.log("lastname from index : ", session.user.lastname);
-    console.log("firstname from index : ", session.user.firstname);
-  } else {
-    console.log("Session or user is undefined");
-  }*/
 
   return (
     <>
@@ -55,6 +40,25 @@ export default function Home(props) {
         }}
       >
         <Prdlistsm1 imgmrv={lgimgmrventes} />
+        <Prdlistupsm1 imgmrv={lgimgmrventes} />
+
+        <Box
+          sx={{
+            width: "100%",
+            background: "#fff",
+            display: "block",
+            boxSizing: "border-box",
+          }}
+        >
+          <Box
+            sx={{
+              borderTop: "solid 1px #D5DBDB",
+              display: "flex",
+            }}
+          >
+            <Allprds1 imgmrv={lgimgmrventes} />
+          </Box>
+        </Box>
       </Box>
 
       {/*  Breakpoint up md*/}
@@ -72,7 +76,29 @@ export default function Home(props) {
           height: "100%",
         }}
       >
-        <Prdlistupsm1 imgmrv={lgimgmrventes} />
+        <Suspense fallback={<CircularProgress />}>
+          <Prdlistupsm1 imgmrv={lgimgmrventes} />
+        </Suspense>
+
+        <Prdlistupmd2 imgmrv={lgimgmrventes} />
+        <Prdlistupmd3 imgmrv={lgimgmrventes} />
+        <Box
+          sx={{
+            width: "100%",
+            background: "#fff",
+            display: "block",
+            boxSizing: "border-box",
+          }}
+        >
+          <Box
+            sx={{
+              borderTop: "solid 1px #D5DBDB",
+              display: "flex",
+            }}
+          >
+            <Allprds1 imgmrv={lgimgmrventes} />
+          </Box>
+        </Box>
       </Box>
 
       {/*  Breakpoint only xs */}
@@ -162,22 +188,9 @@ export default function Home(props) {
   );
 }
 export async function getStaticProps() {
-  //const res1 = await fetch("http://localhost:3000/api/getimgunivdp");
-  // const res1 = await getImguniversdp();
-  //const imguniversdp = await getImguniversdp();
-
-  // const res2 = await fetch("http://localhost:3000/api/getimgpromoj");
-  // const imgpromoj = await res2.json();
-  // const imgpromoj = await getImgpromoj();
-
-  //const res3 = await fetch("http://localhost:3000/api/getlgimgmrv");
-  // const lgimgmrventes = await res3.json();
-  //const lgimgmrventes = JSON.stringify(await getLgimgmrv());
   const lgimgmrventes = JSON.parse(JSON.stringify(await getLgimgmrv()));
   const oneimg = JSON.parse(JSON.stringify(await getOneimg()));
 
-  //const res4 = await fetch("http://localhost:3000/api/getmdimgmrv");
-  // const mdimgmrventes = await res4.json();
   const mdimgmrventes = JSON.parse(JSON.stringify(await getMdimgmrv()));
 
   return {
