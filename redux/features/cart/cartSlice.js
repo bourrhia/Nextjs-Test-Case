@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchCartSpinner } from "./cartSpinnerAPI";
-import { fetchCartDropdown } from "./cartDropdownAPI";
+import { fetchCartSpinner } from "./cartSpinnerApi";
+import { fetchCartDropdown } from "./cartDropdownApi";
 
 import { PURGE } from "redux-persist";
 import { HYDRATE } from "next-redux-wrapper";
