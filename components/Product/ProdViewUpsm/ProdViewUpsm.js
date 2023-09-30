@@ -129,134 +129,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
   ] = useAddUserIdMutation();
 
 <<<<<<< HEAD
-  const handleNavCheckout = async (userId) => {
-    setIsNavCheckout(true);
-    try {
-      await router.push({
-        pathname: "/checkout",
-        query: {
-          userId: userId,
-          
-        },
-      });
-    } catch (error) {
-      // Handle any errors that might occur during navigation
-    } finally {
-      setIsNavCheckout(false);
-    }
-  };
-
-  const clickOpenBuyNow = async (e) => {
-    e.preventDefault();
-    if (!session || !session.user) {
-      setOpenBuyNow(true);
-    } else {
-      dispatch(
-        productAdded({
-          prodId,
-          prodImage,
-          prodDesc,
-          prodQtee,
-          prodPrix,
-          prodEtat,
-          status,
-          prodQteeDisp,
-        })
-      );
-
-      
-      if (session.user.id) {
-        await handleNavCheckout(session.user.id);
-      }
-    }
-  };
-
-  const handleNavOpenCart = async () => {
-    setIsNavOpenCart(true);
-    try {
-      await router.push({
-        pathname: "/cart",
-      });
-    } catch (error) {
-      // Handle any errors that might occur during navigation
-    } finally {
-      setIsNavOpenCart(false);
-    }
-  };
-
-  const handleNavSignIn = async () => {
-    setIsNavSignIn(true);
-    try {
-      await router.push({
-        pathname: "/auth/authForm",
-      });
-    } catch (error) {
-      // Handle any errors that might occur during navigation
-    } finally {
-      setIsNavSignIn(false);
-      handleCloseBuyNow();
-    }
-  };
-
-  const clickOpenCart = async (e) => {
-    e.preventDefault();
-    
-    dispatch(
-      productAdded({
-        prodId,
-        prodImage,
-        prodDesc,
-        prodQtee,
-        prodPrix,
-        prodEtat,
-        status,
-        prodQteeDisp,
-      })
-    );
-
-    await handleNavOpenCart();
-    
-  };
-
-  const clickBuyNoInsc = async () => {
-    try {
-      if (!session || !session.user) {
-        
-        handleCloseBuyNow();
-        dispatch(
-          productAdded({
-            prodId,
-            prodImage,
-            prodDesc,
-            prodQtee,
-            prodPrix,
-            prodEtat,
-            status,
-            prodQteeDisp,
-          })
-        );
-        const response = await addUserId().unwrap();
-        //console.log("Samedi userId response : ", response);
-
-        if (
-          addUserIdIsSuccess ||
-          response?.userId
-        ) {
-          
-          await handleNavCheckout(response?.userId);
-        }
-
-        
-      }
-    } catch (err) {
-      console.error(
-        "Un probleme est survenu pour acheter sans être inscrit: ",
-        err
-      );
-    } finally {
-    }
-  };
-
+ 
 =======
 >>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   function CustPaymentOutlinedIcon(props) {
@@ -274,6 +147,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
       </SvgIcon>
     );
   }
+
 
   const renderedImg = selectedprd.map((image) => (
     <Box
@@ -353,6 +227,127 @@ export const ProdViewUpsm = ({ selectedprd }) => {
       </Box>
     </Box>
   ));
+
+  const handleNavCheckout = async (userId) => {
+    setIsNavCheckout(true);
+    try {
+      await router.push({
+        pathname: "/checkout",
+        query: {
+          userId: userId,
+          
+        },
+      });
+    } catch (error) {
+      
+    } finally {
+      setIsNavCheckout(false);
+    }
+  };
+
+  const clickOpenBuyNow = async (e) => {
+    e.preventDefault();
+    if (!session || !session.user) {
+      setOpenBuyNow(true);
+    } else {
+      dispatch(
+        productAdded({
+          prodId,
+          prodImage,
+          prodDesc,
+          prodQtee,
+          prodPrix,
+          prodEtat,
+          status,
+          prodQteeDisp,
+        })
+      );
+
+      if (session.user.id) {
+        await handleNavCheckout(session.user.id);
+      }
+    }
+  };
+
+  const handleNavOpenCart = async () => {
+    setIsNavOpenCart(true);
+    try {
+      await router.push({
+        pathname: "/cart",
+      });
+    } catch (err) {
+      console.error(
+        "Un probleme est survenu pour acheter sans être inscrit: ",
+        err
+      );
+    } finally {
+      setIsNavOpenCart(false);
+    }
+  };
+
+  const handleNavSignIn = async () => {
+    setIsNavSignIn(true);
+    try {
+      await router.push({
+        pathname: "/auth/authForm",
+      });
+    } catch (error) {
+      // Handle any errors that might occur during navigation
+    } finally {
+      setIsNavSignIn(false);
+      handleCloseBuyNow();
+    }
+  };
+
+  const clickOpenCart = async (e) => {
+    e.preventDefault();
+    dispatch(
+      productAdded({
+        prodId,
+        prodImage,
+        prodDesc,
+        prodQtee,
+        prodPrix,
+        prodEtat,
+        status,
+        prodQteeDisp,
+      })
+    );
+    await handleNavOpenCart();
+  };
+
+  const clickBuyNoInsc = async () => {
+    try {
+      if (!session || !session.user) {
+        
+        handleCloseBuyNow();
+        dispatch(
+          productAdded({
+            prodId,
+            prodImage,
+            prodDesc,
+            prodQtee,
+            prodPrix,
+            prodEtat,
+            status,
+            prodQteeDisp,
+          })
+        );
+        const response = await addUserId().unwrap();
+
+        if (addUserIdIsSuccess || response?.userId ) {
+          await handleNavCheckout(response?.userId);
+        }
+      }
+    } catch (err) {
+      console.error(
+        "Un probleme est survenu pour acheter sans être inscrit: ",
+        err
+      );
+    } finally {
+    }
+  };
+
 
 <<<<<<< HEAD
   const ClickAchatMtnt = () => {
