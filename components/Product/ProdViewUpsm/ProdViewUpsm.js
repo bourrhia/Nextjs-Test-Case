@@ -1,4 +1,3 @@
-//import React from "react";
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Image from "next/image";
@@ -6,10 +5,10 @@ import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined
 import SvgIcon from "@mui/material/SvgIcon";
 import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined";
 import LoopIcon from "@mui/icons-material/Loop";
-//import Typography from "@mui/material/Typography";
+
 import Link from "next/link";
 import { useRouter } from "next/router";
-//
+
 import { useDispatch } from "react-redux";
 import { productAdded } from "../../../redux/features/cart/cartSlice";
 import { useAddUserIdMutation } from "../../../redux/features/api/apiSlice";
@@ -31,8 +30,6 @@ export const ProdViewUpsm = ({ selectedprd }) => {
   const { data: session } = useSession();
 
   
-
-  
   const [openBuyNow, setOpenBuyNow] = useState(false);
   const [isNavCheckout, setIsNavCheckout] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,7 +41,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     setOpenBuyNow(false);
   };
 
-  ////
+  
 
   const dispatch = useDispatch();
 
@@ -74,21 +71,17 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     );
   }
 
-  //console.log("Quantite depart : ");
-  // console.log(prodQtee);
+  
 
   const prodId = selectedprd[0].imgNum;
   const prodImage = selectedprd[0].imgJpg;
   const prodDesc = selectedprd[0].descPrd;
-  //const prodPrix = parseFloat(selectedprd[0].prixAct).toFixed(2);
+ 
   const prodPrix = selectedprd[0].prixAct;
   const prodEtat = selectedprd[0].etatprd;
   const prodQteeDisp = selectedprd[0].qteedisp || 0;
   const status = "idle";
 
-  /*  const qteeInputVisible = false;
-  const qteeUpdateVisible = false;
-  const qteeSpinnerVisible = false;*/
 
   const CartItemPrixAct = parseFloat(Math.round(prodPrix * 100) / 100).toFixed(
     2
@@ -143,7 +136,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         pathname: "/checkout",
         query: {
           userId: userId,
-          //noInscription: noInscription,
+          
         },
       });
     } catch (error) {
@@ -171,7 +164,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         })
       );
 
-      //console.log("session userid : ", session.user.id);
+      
       if (session.user.id) {
         await handleNavCheckout(session.user.id);
       }
@@ -248,7 +241,6 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         if (
           addUserIdIsSuccess ||
           response?.userId
-          
         ) {
           
           await handleNavCheckout(response?.userId);
@@ -369,21 +361,6 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         open={openBuyNow}
         onClose={handleCloseBuyNow}
         aria-labelledby="responsive-dialog-title"
-        // BackdropComponent={Backdrop}
-        /*  BackdropProps={{
-          onClick: handleCloseBuyNow,
-          style: {
-            // background: "rgba(15, 17, 17,0.1)",
-            background: "rgba(17,24,32,.7)",
-          },
-        }}
-        PaperProps={{
-          // Example of new approach
-          sx: {
-            //background: "rgba(17,24,32,.7)",
-            background: "rgba(15, 17, 17,0.1)",
-          },
-        }}*/
         position="fixed"
       >
         <DialogContent>
@@ -595,16 +572,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                             },
 
                             maxWidth: "364px !important",
-                            /*":root": {
-                              "--bubble-filter":
-                                "drop-shadow(0 2px 7px rgba(0,0,0,0.15)) drop-shadow(0 5px 17px rgba(0,0,0,0.2))",
-                            },
-                            filter: "var(--bubble-filter)",*/
-                            /////
-
-                            // backgroundColor: "transparent",
-                            // border: "none",
-                            // outline: 0,
+                            
                           }}
                         >
                           <Box
@@ -672,25 +640,12 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                             },
                             //
                             maxWidth: "364px !important",
-                            //
-                            //  backgroundColor: "transparent",
-                            // border: "none",
-                            // outline: 0,
-                            // textAlign: "center!important",
-                            // width: "100%!important",
+                            
                           }}
                         >
                           <Box
                             component="span"
-                            sx={
-                              {
-                                /* display: 'block',
-                            maxWidth: '90%',
-                             overflow: 'hidden',
-                             textOverflow: 'ellipsis',
-                             whiteSpace: 'nowrap', */
-                              }
-                            }
+                           
                           >
                             <Box
                               component="span"
