@@ -229,10 +229,12 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         const response = await addUserId().unwrap();
         //console.log("Samedi userId response : ", response);
 
-        if (addUserIdIsSuccess || response?.userId) {
-          //console.log("Samedi userId response : ", response);
-          await handleNavCheckout(response?.userId);
-        }
+        await handleNavCheckout(response?.userId);
+
+        //if (addUserIdIsSuccess || response?.userId) {
+        //console.log("Samedi userId response : ", response);
+        //  await handleNavCheckout(response?.userId);
+        //}
       }
     } catch (err) {
       console.error(
