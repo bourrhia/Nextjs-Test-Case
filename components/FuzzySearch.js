@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Fuse from "fuse.js";
 import Box from "@mui/material/Box";
-import MenuItem from "@mui/material/MenuItem";
-import MenuList from "@mui/material/MenuList";
-import { useRouter } from "next/router";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
-import Paper from "@mui/material/Paper";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import SearchIcon from "@mui/icons-material/Search";
 
 const FuzzySearch = ({ data, onSearchResults }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -30,6 +23,36 @@ const FuzzySearch = ({ data, onSearchResults }) => {
     const results = fuse.search(searchTerm);
     onSearchResults(results);
   };
+
+  const StyledSearchIcon = styled("div")({
+    "@keyframes animate-search-icon": {
+      "0%": {
+        opacity: 0,
+      },
+
+      "50%": {
+        opacity: ".1",
+      },
+
+      "75%": {
+        opacity: ".5",
+      },
+
+      "100%": {
+        opacity: 1,
+      },
+    },
+    position: "absolute",
+    left: "12px",
+    width: "24px",
+    height: "24px",
+    top: "7px",
+
+    fill: "#767676",
+    verticalAlign: "middle",
+    animationName: "animate-search-icon",
+    animationDuration: ".15s",
+  });
 
   return (
     <Box

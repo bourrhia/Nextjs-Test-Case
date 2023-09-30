@@ -22,20 +22,12 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 //
 
-<<<<<<< HEAD
 import { useSession } from "next-auth/react";
-=======
-//import { useSession } from "next-auth/react";
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
 
 export default function Home(props) {
   const { lgimgmrventes, mdimgmrventes, oneimg } = props;
 
-<<<<<<< HEAD
-  const { data: session } = useSession();
-=======
   /* const { data: session } = useSession();
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
 
   if (session && session.user) {
     console.log("email from index : ", session.user.email);
@@ -43,11 +35,7 @@ export default function Home(props) {
     console.log("firstname from index : ", session.user.firstname);
   } else {
     console.log("Session or user is undefined");
-<<<<<<< HEAD
-  }
-=======
   }*/
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
 
   return (
     <>
@@ -58,38 +46,6 @@ export default function Home(props) {
           marginLeft: "32px",
           marginRight: "32px",
           maxWidth: "1248px",
-<<<<<<< HEAD
-
-          marginBottom: "64px",
-          marginTop: "32px",
-          //
-          width: "100%",
-          height: "100%",
-        }}
-      >
-        <Prdlistsm1 imgmrv={lgimgmrventes} />
-        <Prdlistupsm1 imgmrv={lgimgmrventes} />
-
-        <Box
-          sx={{
-            width: "100%",
-            background: "#fff",
-            display: "block",
-            boxSizing: "border-box",
-          }}
-        >
-          <Box
-            sx={{
-              borderTop: "solid 1px #D5DBDB",
-              display: "flex",
-            }}
-          >
-            <Allprds1 imgmrv={lgimgmrventes} />
-          </Box>
-        </Box>
-      </Box>
-
-=======
 
           marginBottom: "64px",
           marginTop: "32px",
@@ -101,7 +57,6 @@ export default function Home(props) {
         <Prdlistsm1 imgmrv={lgimgmrventes} />
       </Box>
 
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
       {/*  Breakpoint up md*/}
       <Box
         sx={{
@@ -117,33 +72,7 @@ export default function Home(props) {
           height: "100%",
         }}
       >
-<<<<<<< HEAD
-        <Suspense fallback={<CircularProgress />}>
-          <Prdlistupsm1 imgmrv={lgimgmrventes} />
-        </Suspense>
-
-        <Prdlistupmd2 imgmrv={lgimgmrventes} />
-        <Prdlistupmd3 imgmrv={lgimgmrventes} />
-        <Box
-          sx={{
-            width: "100%",
-            background: "#fff",
-            display: "block",
-            boxSizing: "border-box",
-          }}
-        >
-          <Box
-            sx={{
-              borderTop: "solid 1px #D5DBDB",
-              display: "flex",
-            }}
-          >
-            <Allprds1 imgmrv={lgimgmrventes} />
-          </Box>
-        </Box>
-=======
         <Prdlistupsm1 imgmrv={lgimgmrventes} />
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
       </Box>
 
       {/*  Breakpoint only xs */}

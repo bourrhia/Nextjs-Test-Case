@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import SvgIcon from "@mui/material/SvgIcon";
 import CloseIcon from "@mui/icons-material/Close";
-import { useSession } from "next-auth/react";
-import Button from "@mui/material/Button";
 
 const DialogCheckout = ({
   open,
@@ -16,6 +14,13 @@ const DialogCheckout = ({
   isNavCheckout,
   isNavSignIn,
 }) => {
+  function CustCloseIcon(props) {
+    return (
+      <SvgIcon {...props}>
+        <CloseIcon />
+      </SvgIcon>
+    );
+  }
   return (
     <Dialog
       open={open}

@@ -136,8 +136,8 @@ export const EmailUsed = () => {
                   fontWeight: 400,
                 }}
               >
-                Nous sommes désolés. L'adresse Web que vous avez saisie n'est
-                pas une page fonctionnelle de notre site.
+                Nous sommes désolés. Ladresse Web que vous avez saisie nest pas
+                une page fonctionnelle de notre site.
               </Box>
               <Box
                 component="span"
