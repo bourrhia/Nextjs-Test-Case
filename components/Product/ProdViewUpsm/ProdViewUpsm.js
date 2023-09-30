@@ -8,7 +8,7 @@ import LoopIcon from "@mui/icons-material/Loop";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+//
 import { useDispatch } from "react-redux";
 import { productAdded } from "../../../redux/features/cart/cartSlice";
 import { useAddUserIdMutation } from "../../../redux/features/api/apiSlice";
@@ -20,16 +20,12 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContentText from "@mui/material/DialogContentText";
 import Backdrop from "@mui/material/Backdrop";
 import CloseIcon from "@mui/icons-material/Close";
+
 import { useSession } from "next-auth/react";
 
-
-
 export const ProdViewUpsm = ({ selectedprd }) => {
-  
-
   const { data: session } = useSession();
 
-  
   const [openBuyNow, setOpenBuyNow] = useState(false);
   const [isNavCheckout, setIsNavCheckout] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,8 +36,6 @@ export const ProdViewUpsm = ({ selectedprd }) => {
   const handleCloseBuyNow = () => {
     setOpenBuyNow(false);
   };
-
-  
 
   const dispatch = useDispatch();
 
@@ -71,17 +65,14 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     );
   }
 
-  
-
   const prodId = selectedprd[0].imgNum;
   const prodImage = selectedprd[0].imgJpg;
   const prodDesc = selectedprd[0].descPrd;
- 
+
   const prodPrix = selectedprd[0].prixAct;
   const prodEtat = selectedprd[0].etatprd;
   const prodQteeDisp = selectedprd[0].qteedisp || 0;
   const status = "idle";
-
 
   const CartItemPrixAct = parseFloat(Math.round(prodPrix * 100) / 100).toFixed(
     2
@@ -128,10 +119,129 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     },
   ] = useAddUserIdMutation();
 
-<<<<<<< HEAD
- 
-=======
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
+  const handleNavCheckout = async (userId) => {
+    setIsNavCheckout(true);
+    try {
+      await router.push({
+        pathname: "/checkout",
+        query: {
+          userId: userId,
+          //noInscription: noInscription,
+        },
+      });
+    } catch (error) {
+      // Handle any errors that might occur during navigation
+    } finally {
+      setIsNavCheckout(false);
+    }
+  };
+
+  const clickOpenBuyNow = async (e) => {
+    e.preventDefault();
+    if (!session || !session.user) {
+      setOpenBuyNow(true);
+    } else {
+      dispatch(
+        productAdded({
+          prodId,
+          prodImage,
+          prodDesc,
+          prodQtee,
+          prodPrix,
+          prodEtat,
+          status,
+          prodQteeDisp,
+        })
+      );
+
+      //console.log("session userid : ", session.user.id);
+      if (session.user.id) {
+        await handleNavCheckout(session.user.id);
+      }
+    }
+  };
+
+  const handleNavOpenCart = async () => {
+    setIsNavOpenCart(true);
+    try {
+      await router.push({
+        pathname: "/cart",
+      });
+    } catch (error) {
+      // Handle any errors that might occur during navigation
+    } finally {
+      setIsNavOpenCart(false);
+    }
+  };
+
+  const handleNavSignIn = async () => {
+    setIsNavSignIn(true);
+    try {
+      await router.push({
+        pathname: "/auth/authForm",
+      });
+    } catch (error) {
+      // Handle any errors that might occur during navigation
+    } finally {
+      setIsNavSignIn(false);
+      handleCloseBuyNow();
+    }
+  };
+
+  const clickOpenCart = async (e) => {
+    e.preventDefault();
+
+    dispatch(
+      productAdded({
+        prodId,
+        prodImage,
+        prodDesc,
+        prodQtee,
+        prodPrix,
+        prodEtat,
+        status,
+        prodQteeDisp,
+      })
+    );
+
+    await handleNavOpenCart();
+    // }
+  };
+
+  const clickBuyNoInsc = async () => {
+    try {
+      if (!session || !session.user) {
+        //setOpenBuyNow(false);
+        handleCloseBuyNow();
+        dispatch(
+          productAdded({
+            prodId,
+            prodImage,
+            prodDesc,
+            prodQtee,
+            prodPrix,
+            prodEtat,
+            status,
+            prodQteeDisp,
+          })
+        );
+        const response = await addUserId().unwrap();
+        //console.log("Samedi userId response : ", response);
+
+        if (addUserIdIsSuccess || response?.userId) {
+          //console.log("Samedi userId response : ", response);
+          await handleNavCheckout(response?.userId);
+        }
+      }
+    } catch (err) {
+      console.error(
+        "Un probleme est survenu pour acheter sans être inscrit: ",
+        err
+      );
+    } finally {
+    }
+  };
+
   function CustPaymentOutlinedIcon(props) {
     return (
       <SvgIcon {...props}>
@@ -147,7 +257,6 @@ export const ProdViewUpsm = ({ selectedprd }) => {
       </SvgIcon>
     );
   }
-
 
   const renderedImg = selectedprd.map((image) => (
     <Box
@@ -228,134 +337,27 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     </Box>
   ));
 
-  const handleNavCheckout = async (userId) => {
-    setIsNavCheckout(true);
-    try {
-      await router.push({
-        pathname: "/checkout",
-        query: {
-          userId: userId,
-          
-        },
-      });
-    } catch (error) {
-      
-    } finally {
-      setIsNavCheckout(false);
-    }
-  };
-
-  const clickOpenBuyNow = async (e) => {
-    e.preventDefault();
-    if (!session || !session.user) {
-      setOpenBuyNow(true);
-    } else {
-      dispatch(
-        productAdded({
-          prodId,
-          prodImage,
-          prodDesc,
-          prodQtee,
-          prodPrix,
-          prodEtat,
-          status,
-          prodQteeDisp,
-        })
-      );
-
-      if (session.user.id) {
-        await handleNavCheckout(session.user.id);
-      }
-    }
-  };
-
-  const handleNavOpenCart = async () => {
-    setIsNavOpenCart(true);
-    try {
-      await router.push({
-        pathname: "/cart",
-      });
-    } catch (err) {
-      console.error(
-        "Un probleme est survenu pour acheter sans être inscrit: ",
-        err
-      );
-    } finally {
-      setIsNavOpenCart(false);
-    }
-  };
-
-  const handleNavSignIn = async () => {
-    setIsNavSignIn(true);
-    try {
-      await router.push({
-        pathname: "/auth/authForm",
-      });
-    } catch (error) {
-      // Handle any errors that might occur during navigation
-    } finally {
-      setIsNavSignIn(false);
-      handleCloseBuyNow();
-    }
-  };
-
-  const clickOpenCart = async (e) => {
-    e.preventDefault();
-    dispatch(
-      productAdded({
-        prodId,
-        prodImage,
-        prodDesc,
-        prodQtee,
-        prodPrix,
-        prodEtat,
-        status,
-        prodQteeDisp,
-      })
-    );
-    await handleNavOpenCart();
-  };
-
-  const clickBuyNoInsc = async () => {
-    try {
-      if (!session || !session.user) {
-        
-        handleCloseBuyNow();
-        dispatch(
-          productAdded({
-            prodId,
-            prodImage,
-            prodDesc,
-            prodQtee,
-            prodPrix,
-            prodEtat,
-            status,
-            prodQteeDisp,
-          })
-        );
-        const response = await addUserId().unwrap();
-
-        if (addUserIdIsSuccess || response?.userId ) {
-          await handleNavCheckout(response?.userId);
-        }
-      }
-    } catch (err) {
-      console.error(
-        "Un probleme est survenu pour acheter sans être inscrit: ",
-        err
-      );
-    } finally {
-    }
-  };
-
-
-<<<<<<< HEAD
   const ClickAchatMtnt = () => {
     return (
       <Dialog
         open={openBuyNow}
         onClose={handleCloseBuyNow}
         aria-labelledby="responsive-dialog-title"
+        // BackdropComponent={Backdrop}
+        /*  BackdropProps={{
+          onClick: handleCloseBuyNow,
+          style: {
+            // background: "rgba(15, 17, 17,0.1)",
+            background: "rgba(17,24,32,.7)",
+          },
+        }}
+        PaperProps={{
+          // Example of new approach
+          sx: {
+            //background: "rgba(17,24,32,.7)",
+            background: "rgba(15, 17, 17,0.1)",
+          },
+        }}*/
         position="fixed"
       >
         <DialogContent>
@@ -567,7 +569,16 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                             },
 
                             maxWidth: "364px !important",
-                            
+                            /*":root": {
+                              "--bubble-filter":
+                                "drop-shadow(0 2px 7px rgba(0,0,0,0.15)) drop-shadow(0 5px 17px rgba(0,0,0,0.2))",
+                            },
+                            filter: "var(--bubble-filter)",*/
+                            /////
+
+                            // backgroundColor: "transparent",
+                            // border: "none",
+                            // outline: 0,
                           }}
                         >
                           <Box
@@ -587,7 +598,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                                 fontWeight: 400,
                               }}
                             >
-                              Se connecter pour finaliser l&rsquo;achat
+                              Se connecter pour finaliser l'achat
                             </Box>
                           </Box>
                         </Box>
@@ -635,12 +646,25 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                             },
                             //
                             maxWidth: "364px !important",
-                            
+                            //
+                            //  backgroundColor: "transparent",
+                            // border: "none",
+                            // outline: 0,
+                            // textAlign: "center!important",
+                            // width: "100%!important",
                           }}
                         >
                           <Box
                             component="span"
-                           
+                            sx={
+                              {
+                                /* display: 'block',
+                            maxWidth: '90%',
+                             overflow: 'hidden',
+                             textOverflow: 'ellipsis',
+                             whiteSpace: 'nowrap', */
+                              }
+                            }
                           >
                             <Box
                               component="span"
@@ -648,7 +672,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                                 fontWeight: 400,
                               }}
                             >
-                              Finaliser l&rsquo;achat sans être inscrit
+                              Finaliser l'achat sans être inscrit
                             </Box>
                           </Box>
                         </Box>
@@ -664,8 +688,6 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     );
   };
 
-=======
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
   const rightCol = (
     <Box
       sx={{
@@ -986,21 +1008,13 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                                 <Box
                                   //component="a"
                                   component="button"
-<<<<<<< HEAD
                                   onClick={clickOpenCart}
-=======
-                                  /*  onClick={clickOpenCart}
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                                   disabled={
                                     isLoading ||
                                     isNavCheckout ||
                                     isNavOpenCart ||
                                     isNavSignIn
-<<<<<<< HEAD
                                   }
-=======
-                                  }*/
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                                   sx={{
                                     backgroundColor: "transparent",
                                     border: "none",
@@ -1073,21 +1087,13 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                                   <Box
                                     // component="a"
                                     component="button"
-<<<<<<< HEAD
                                     onClick={clickOpenBuyNow}
-=======
-                                    /* onClick={clickOpenBuyNow}
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                                     disabled={
                                       isLoading ||
                                       isNavCheckout ||
                                       isNavOpenCart ||
                                       isNavSignIn
-<<<<<<< HEAD
                                     }
-=======
-                                    }*/
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
                                     sx={{
                                       backgroundColor: "transparent",
                                       border: "none",
@@ -1163,14 +1169,11 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                                   </Box>
                                 </Box>
                               </Box>
-<<<<<<< HEAD
                               <>
                                 {(!session || !session.user) && (
                                   <ClickAchatMtnt />
                                 )}
                               </>
-=======
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
 
                               <Box>
                                 <Box
@@ -2913,11 +2916,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                     lineHeight: "20px",
                   }}
                 >
-<<<<<<< HEAD
-                  Pays d&rsquo;origibne &rlm; : &lrm;
-=======
-                  Pays origibne &rlm; : &lrm;
->>>>>>> 4465f2d017ef6aeea8e7c621b51747a7452b6bed
+                  Pays d'origibne &rlm; : &lrm;
                 </Box>
                 <Box component="span">{selectedprd[0].paysorigibne}</Box>
               </Box>
