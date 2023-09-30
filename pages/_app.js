@@ -15,6 +15,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { wrapper } from "../redux/store";
 
 import { SessionProvider } from "next-auth/react";
+import { store, persistor } from "../redux/store";
 
 const clientSideEmotionCache = createEmotionCache();
 

@@ -35,8 +35,6 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     setOpenBuyNow(false);
   };
 
-  const dispatch = useDispatch();
-
   const router = useRouter();
 
   const [prodQtee, setProdQtee] = useState(1);
@@ -221,21 +219,6 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         open={openBuyNow}
         onClose={handleCloseBuyNow}
         aria-labelledby="responsive-dialog-title"
-        // BackdropComponent={Backdrop}
-        /*  BackdropProps={{
-          onClick: handleCloseBuyNow,
-          style: {
-            // background: "rgba(15, 17, 17,0.1)",
-            background: "rgba(17,24,32,.7)",
-          },
-        }}
-        PaperProps={{
-          // Example of new approach
-          sx: {
-            //background: "rgba(17,24,32,.7)",
-            background: "rgba(15, 17, 17,0.1)",
-          },
-        }}*/
         position="fixed"
       >
         <DialogContent>
@@ -446,16 +429,6 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                             },
 
                             maxWidth: "364px !important",
-                            /*":root": {
-                              "--bubble-filter":
-                                "drop-shadow(0 2px 7px rgba(0,0,0,0.15)) drop-shadow(0 5px 17px rgba(0,0,0,0.2))",
-                            },
-                            filter: "var(--bubble-filter)",*/
-                            /////
-
-                            // backgroundColor: "transparent",
-                            // border: "none",
-                            // outline: 0,
                           }}
                         >
                           <Box
