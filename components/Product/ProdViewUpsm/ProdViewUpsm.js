@@ -117,124 +117,9 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     },
   ] = useAddUserIdMutation();
 
-  const handleNavCheckout = async (userId) => {
-    setIsNavCheckout(true);
-    try {
-      await router.push({
-        pathname: "/checkout",
-        query: {
-          userId: userId,
-        },
-      });
-    } catch (error) {
-      // Handle any errors that might occur during navigation
-    } finally {
-      setIsNavCheckout(false);
-    }
-  };
+  // ************* Begin add
 
-  const clickOpenBuyNow = async (e) => {
-    e.preventDefault();
-    if (!session || !session.user) {
-      setOpenBuyNow(true);
-    } else {
-      dispatch(
-        productAdded({
-          prodId,
-          prodImage,
-          prodDesc,
-          prodQtee,
-          prodPrix,
-          prodEtat,
-          status,
-          prodQteeDisp,
-        })
-      );
-      if (session.user.id) {
-        await handleNavCheckout(session.user.id);
-      }
-    }
-  };
-
-  const handleNavOpenCart = async () => {
-    setIsNavOpenCart(true);
-    try {
-      await router.push({
-        pathname: "/cart",
-      });
-    } catch (error) {
-    } finally {
-      setIsNavOpenCart(false);
-    }
-  };
-
-  const handleNavSignIn = async () => {
-    setIsNavSignIn(true);
-    try {
-      await router.push({
-        pathname: "/auth/authForm",
-      });
-    } catch (err) {
-      console.error(
-        "Un probleme est survenu pour acheter sans être inscrit: ",
-        err
-      );
-    } finally {
-      setIsNavSignIn(false);
-      handleCloseBuyNow();
-    }
-  };
-
-  const clickOpenCart = async (e) => {
-    e.preventDefault();
-
-    dispatch(
-      productAdded({
-        prodId,
-        prodImage,
-        prodDesc,
-        prodQtee,
-        prodPrix,
-        prodEtat,
-        status,
-        prodQteeDisp,
-      })
-    );
-
-    await handleNavOpenCart();
-  };
-
-  const clickBuyNoInsc = async () => {
-    try {
-      if (!session || !session.user) {
-        handleCloseBuyNow();
-        dispatch(
-          productAdded({
-            prodId,
-            prodImage,
-            prodDesc,
-            prodQtee,
-            prodPrix,
-            prodEtat,
-            status,
-            prodQteeDisp,
-          })
-        );
-        const response = await addUserId().unwrap();
-
-        if (addUserIdIsSuccess || response?.userId) {
-          await handleNavCheckout(response?.userId);
-        }
-      }
-    } catch (err) {
-      console.error(
-        "Un probleme est survenu pour acheter sans être inscrit: ",
-        err
-      );
-    } finally {
-    }
-  };
-
+  // ************* End add
   function CustPaymentOutlinedIcon(props) {
     return (
       <SvgIcon {...props}>
@@ -524,9 +409,8 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                     >
                       <Box>
                         <Box
-                          //component="a"
                           component="button"
-                          onClick={handleNavSignIn}
+                          //onClick={handleNavSignIn}
                           disabled={
                             isLoading ||
                             isNavCheckout ||
@@ -602,9 +486,8 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                         }}
                       >
                         <Box
-                          //component="a"
                           component="button"
-                          onClick={clickBuyNoInsc}
+                          // onClick={clickBuyNoInsc}
                           disabled={
                             isLoading ||
                             isNavCheckout ||
@@ -999,9 +882,8 @@ export const ProdViewUpsm = ({ selectedprd }) => {
 
                               <Box>
                                 <Box
-                                  //component="a"
                                   component="button"
-                                  onClick={clickOpenCart}
+                                  //onClick={clickOpenCart}
                                   disabled={
                                     isLoading ||
                                     isNavCheckout ||
@@ -1078,9 +960,8 @@ export const ProdViewUpsm = ({ selectedprd }) => {
                               <Box>
                                 <Box>
                                   <Box
-                                    // component="a"
                                     component="button"
-                                    onClick={clickOpenBuyNow}
+                                    // onClick={clickOpenBuyNow}
                                     disabled={
                                       isLoading ||
                                       isNavCheckout ||
