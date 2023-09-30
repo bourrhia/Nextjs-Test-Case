@@ -1,18 +1,3 @@
-/* import { configureStore } from "@reduxjs/toolkit";
-import cartReducer from "./features/cart/cartSlice";
-import { apiSlice } from "./features/api/apiSlice";
-
-const store = configureStore({
-  reducer: {
-    cart: cartReducer,
-    [apiSlice.reducerPath]: apiSlice.reducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware),
-});
-
-export default store; */
-
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import {
@@ -25,11 +10,11 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-//import storage from "redux-persist/lib/storage";
+
 import storage from "./storage";
 import cartReducer from "./features/cart/cartSlice";
 import { apiSlice } from "./features/api/apiSlice";
-//import { createWrapper } from "next-redux-wrapper";
+
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 
 const combinedReducer = combineReducers({
@@ -43,8 +28,6 @@ const persistConfig = {
   storage,
   blacklist: [apiSlice.reducerPath],
 };
-
-//const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const rootReducer = (state, action) => {
   if (action.type === HYDRATE) {
@@ -64,7 +47,6 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      // Redux persist
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
@@ -74,9 +56,6 @@ export const store = configureStore({
 
 const makeStore = () => store;
 
-//export let persistor = persistStore(store);
 export let persistor = persistStore(store);
 
 export const wrapper = createWrapper(makeStore);
-
-//export default { store, persistor };

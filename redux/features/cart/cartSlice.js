@@ -1,38 +1,32 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-//import { fetchCartSpinner } from "./cartSpinnerAPI";
-//import { fetchCartDropdown } from "./cartDropdownAPI";
-//
+import { fetchCartSpinner } from "./cartSpinnerAPI";
+import { fetchCartDropdown } from "./cartDropdownAPI";
+
 import { PURGE } from "redux-persist";
 import { HYDRATE } from "next-redux-wrapper";
 
-//import { current } from "@reduxjs/toolkit";
-
 const initialState = {
   products: [],
-  // status: "idle",
-  // error: null,
 };
 
-/*export const cartSpinnerAsync = createAsyncThunk(
+export const cartSpinnerAsync = createAsyncThunk(
   "cart/fetchCartSpinner",
   async (initialPost) => {
     const response = await fetchCartSpinner(initialPost);
 
     return response.data;
   }
-);*/
+);
 
-/*export const cartDropdownAsync = createAsyncThunk(
+export const cartDropdownAsync = createAsyncThunk(
   "cart/fetchCartDropdown",
   async (initialPost, { dispatch }) => {
     const response = await fetchCartDropdown(initialPost);
-    // The value we return becomes the `fulfilled` action payload
-    // dispatch(productUpdated(initialPost));
 
     dispatch(productUpdated(initialPost));
     return response.data;
   }
-);*/
+);
 
 const cartSlice = createSlice({
   name: "cart",
@@ -77,7 +71,7 @@ const cartSlice = createSlice({
     },
     ////////////////////
   },
-  /*extraReducers: (builder) => {
+  extraReducers: (builder) => {
     builder
       .addCase(cartSpinnerAsync.pending, (state, { meta }) => {
         let index = state.products
@@ -97,14 +91,11 @@ const cartSlice = createSlice({
           state.products[index].prodQtee = action.payload.prodQuantity;
         }
       })
-      .addCase(cartDropdownAsync.fulfilled, (state, action) => {
-        // state.status = "testidle";
-      })
+      .addCase(cartDropdownAsync.fulfilled, (state, action) => {})
       .addCase(PURGE, (state) => {
         customEntityAdapter.removeAll(state);
       });
-    
-  },*/
+  },
 });
 
 export const {
