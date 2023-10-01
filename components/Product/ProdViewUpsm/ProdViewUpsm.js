@@ -230,12 +230,12 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         //  setResponseUserId(response?.userId);
         // }
 
-        await handleNavCheckout();
+        //await handleNavCheckout();
 
-        //if (addUserIdIsSuccess || response?.userId) {
-        //console.log("Samedi userId response : ", response);
-        //  await handleNavCheckout(response?.userId);
-        //}
+        if (addUserIdIsSuccess || response?.userId) {
+          //console.log("Samedi userId response : ", response);
+          await handleNavCheckout(response?.userId);
+        }
       }
     } catch (err) {
       console.error(
