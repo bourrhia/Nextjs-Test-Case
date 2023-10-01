@@ -7,10 +7,7 @@ export const apiSlice = createApi({
   // The cache reducer expects to be added at `state.api` (already default - this is optional)
   reducerPath: "api",
   // All of our requests will have URLs starting with '/api'
-  //baseQuery: fetchBaseQuery({ baseUrl: process.env.VERCEL_URL }),
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://nextjs-test-case.vercel.app",
-  }),
+  baseQuery: fetchBaseQuery({ baseUrl: process.env.VERCEL_URL }),
   tagTypes: ["User", "Orders"],
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
