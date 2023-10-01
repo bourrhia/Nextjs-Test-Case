@@ -17,28 +17,11 @@ export const apiSlice = createApi({
   },
   // The "endpoints" represent operations and requests for this server
   endpoints: (builder) => ({
-    // The `getPosts` endpoint is a "query" operation that returns data
-    /* getUser: builder.query({
-      // The URL for the request is '/fakeApi/posts'
-      query: () => "/api/cartuseraddress/user",
-    }),
-    addUserAddress: builder.mutation({
-      query: (useraddress) => ({
-        url: "/api/cartuseraddress/useraddress",
-        method: "POST",
-        // Include the entire delivery address object as the body of the request
-        body: useraddress,
-      }),
-    }),*/
     // Add
     getUserAdr: builder.query({
       // note: an optional `queryFn` may be used in place of `query`
       query: (userId) => ({ url: `/api/cartUserAdr/${userId}` }),
-      // Pick out data and prevent nested properties in a hook or selector
-      //transformResponse: (response, meta, arg) => response.data,
-      // Pick out errors and prevent nested properties in a hook or selector
-      // transformErrorResponse: (response, meta, arg) => response.status,
-      // providesTags: (result, error, id) => [{ type: "User", id }],
+
       providesTags: ["User"],
     }),
     editUserAdrLiv: builder.mutation({
@@ -163,21 +146,17 @@ export const apiSlice = createApi({
         url: `/api/fuzzySearch/search?query=${searchTerm}`,
       }),
       method: "GET",
-      // body: searchTerm,
     }),
     addUserId: builder.mutation({
       query: () => ({
         url: "/api/generateUserId",
         method: "POST",
-        // body: email,
       }),
     }),
   }),
 });
 
-// Export the auto-generated hook for the `addDeliveryAddress` mutation endpoint
 export const {
-  // useGetUserQuery,
   useEditUserAdrLivMutation,
   useEditUserAdrFactMutation,
   useGetUserAdrQuery,
