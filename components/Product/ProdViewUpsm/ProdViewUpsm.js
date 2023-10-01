@@ -243,8 +243,9 @@ export const ProdViewUpsm = ({ selectedprd }) => {
       });
 
       alert(`Dimanche response.status: ${response.status}`);
+      alert(`Dimanche response.status: ${response}`);
 
-      if (response?.ok) {
+      if (response.status === 200) {
         const data = await response.json();
         const { userId } = data;
         alert(`Dimanche checkout userId: ${userId}`);
