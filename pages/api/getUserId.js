@@ -1,23 +1,23 @@
 import { connectToDatabase } from "../../util/mongodb";
 //import { ObjectId } from "mongodb"; // Import ObjectId
-const { ObjectId } = require("mongodb");
+// const { ObjectId } = require("mongodb");
 
 export default async function handler(req, res) {
   const { id } = req.query;
 
-  if (req.method !== "GET") {
+  /*if (req.method !== "GET") {
     return res.status(405).json({ message: "Method Not Allowed" });
-  }
+  }*/
 
   if (!id) {
-    return res.status(400).json({ message: "Missing _id parameter" });
+    return res.status(400).json({ message: "Missing id parameter" });
   }
 
   const { db } = await connectToDatabase();
 
   try {
-    const objectId = new ObjectId(id); // Convert _id string to ObjectId
-    const user = await db.collection("user").findOne({ _id: objectId });
+    // const objectId = new ObjectId(id); // Convert id string to ObjectId
+    const user = await db.collection("user").findOne({ _id: id });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
