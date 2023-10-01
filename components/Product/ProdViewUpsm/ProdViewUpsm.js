@@ -212,22 +212,22 @@ export const ProdViewUpsm = ({ selectedprd }) => {
   };
 
   const clickBuyNoInsc = async () => {
-    try {
-      if (!session || !session.user) {
-        handleCloseBuyNow();
-        dispatch(
-          productAdded({
-            prodId,
-            prodImage,
-            prodDesc,
-            prodQtee,
-            prodPrix,
-            prodEtat,
-            status,
-            prodQteeDisp,
-          })
-        );
-        /* const response = await addUserId().unwrap();
+    //try {
+    if (!session || !session.user) {
+      handleCloseBuyNow();
+      dispatch(
+        productAdded({
+          prodId,
+          prodImage,
+          prodDesc,
+          prodQtee,
+          prodPrix,
+          prodEtat,
+          status,
+          prodQteeDisp,
+        })
+      );
+      /* const response = await addUserId().unwrap();
 
         alert(`Dimanche checkout addUserIdData : ${addUserIdData}`);
         alert(`Dimanche checkout  response : ${response}`);
@@ -238,31 +238,29 @@ export const ProdViewUpsm = ({ selectedprd }) => {
           await handleNavCheckout(response?.userId);
         }*/
 
-        const response = await fetch(
-          `${process.env.VERCEL_URL}/api/generateUserId`,
-          {
-            method: "POST",
-          }
-        );
-
-        alert(`Dimanche checkout  response : ${response}`);
-
-        if (response.ok) {
-          const data = await response.json();
-          const { userId } = data;
-          alert(`Dimanche checkout  userId: ${data}`);
-          await handleNavCheckout(userId);
-        } else {
-          console.log("Erreur pour generer user id");
+      const response = await fetch(
+        `${process.env.VERCEL_URL}/api/generateUserId`,
+        {
+          method: "POST",
         }
+      );
+
+      if (response?.ok) {
+        const data = await response.json();
+        const { userId } = data;
+        alert(`Dimanche checkout userId: ${userId}`);
+        await handleNavCheckout(userId);
+      } else {
+        console.log("Erreur pour generer user id");
       }
-    } catch (err) {
-      console.error(
+    }
+    //  } catch (err) {
+    /*   console.error(
         "Un probleme est survenu pour acheter sans être inscrit: ",
         err
       );
     } finally {
-    }
+    }*/
   };
 
   function CustPaymentOutlinedIcon(props) {
