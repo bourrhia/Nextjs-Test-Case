@@ -206,9 +206,19 @@ export const Checkout = () => {
   // export const HandlesCheckout = () => {
   const HandlesCheckout = () => {
     const router = useRouter();
-    const { userId } = router.query;
+    const { id } = router.query;
 
-    //console.log("Samedi checkout userId : ", userId);
+    const [myUserId, setMyUserId] = useState(null);
+
+    useEffect(() => {
+      fetch(`/api/getUserId?id=${id}`)
+        .then((response) => response.json())
+        .then((data) => setMyUserId(data))
+        .catch((error) => console.error("Error fetching user:", error));
+    }, [id]);
+
+    // Access the userId from the user
+    const { userId } = myUserId;
     //const userId = 264;
 
     const dateLiv = "28/04/2023";

@@ -127,7 +127,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
       await router.push({
         pathname: "/checkout",
         query: {
-          userId: userId,
+          id: userId,
         },
       });
     } catch (error) {
