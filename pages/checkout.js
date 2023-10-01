@@ -206,10 +206,10 @@ export const Checkout = () => {
   // export const HandlesCheckout = () => {
   const HandlesCheckout = () => {
     const router = useRouter();
-    const { userId } = router.query;
+    // const { userId } = router.query;
 
     //console.log("Samedi checkout userId : ", userId);
-    //const userId = 10;
+    const userId = 264;
 
     const dateLiv = "28/04/2023";
     const methodLiv = "Livraison à domicile";

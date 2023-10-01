@@ -509,40 +509,6 @@ export const Cart = () => {
       dispatch(productRemoved({ prodId }));
     };
 
-    // const [isLoading, setIsLoading] = useState(false);
-
-    /* useEffect(() => {
-      const handleRouteChangeStart = () => {
-        setIsLoading(true);
-      };
-
-      const handleRouteChangeComplete = () => {
-        setIsLoading(false);
-      };
-
-      router.events.on("routeChangeStart", handleRouteChangeStart);
-      router.events.on("routeChangeComplete", handleRouteChangeComplete);
-
-      return () => {
-        router.events.off("routeChangeStart", handleRouteChangeStart);
-        router.events.off("routeChangeComplete", handleRouteChangeComplete);
-      };
-    }, []);*/
-
-    /* const handleNavHome = async () => {
-      // setIsNavHome(true);
-
-      try {
-        await router.push({
-          pathname: "/",
-        });
-      } catch (error) {
-        // Handle any errors that might occur during navigation
-      } finally {
-        // setIsNavHome(false);
-      }
-    };*/
-
     // Getting the count of items
     const getItemsCount = () => {
       return cart.reduce((accumulator, item) => accumulator + item.prodQtee, 0);

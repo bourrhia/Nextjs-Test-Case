@@ -33,6 +33,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
   const [isNavOpenCart, setIsNavOpenCart] = useState(false);
   const [isNavSignIn, setIsNavSignIn] = useState(false);
   const [checkoutWithoutInsc, setCheckoutWithoutInsc] = useState(false);
+  const [responseUserId, setResponseUserId] = useState(false);
 
   const handleCloseBuyNow = () => {
     setOpenBuyNow(false);
@@ -123,14 +124,11 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     },
   ] = useAddUserIdMutation();
 
-  const handleNavCheckout = async (userId) => {
+  const handleNavCheckout = async () => {
     setIsNavCheckout(true);
     try {
       await router.push({
         pathname: "/checkout",
-        query: {
-          userId: userId,
-        },
       });
     } catch (error) {
       // Handle any errors that might occur during navigation
@@ -228,8 +226,11 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         );
         const response = await addUserId().unwrap();
         //console.log("Samedi userId response : ", response);
+        if (response?.userId) {
+          setResponseUserId(response?.userId);
+        }
 
-        await handleNavCheckout(response?.userId);
+        await handleNavCheckout();
 
         //if (addUserIdIsSuccess || response?.userId) {
         //console.log("Samedi userId response : ", response);
@@ -3731,6 +3732,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         }}
       >
         <Box>
+          Bonjour {responseUserId}
           {rightCol}
           {leftCol}
           {centerCol}

@@ -91,7 +91,6 @@ const cartSlice = createSlice({
           state.products[index].prodQtee = action.payload.prodQuantity;
         }
       })
-      .addCase(cartDropdownAsync.fulfilled, (state, action) => {})
       .addCase(PURGE, (state) => {
         customEntityAdapter.removeAll(state);
       });
