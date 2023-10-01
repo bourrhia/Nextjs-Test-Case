@@ -159,7 +159,7 @@ export const Cart = () => {
       await router.push({
         pathname: "/checkout",
         query: {
-          userId: userId,
+          id: userId,
         },
       });
     } catch (error) {
@@ -199,8 +199,6 @@ export const Cart = () => {
       if (!session || !session.user) {
         handleCloseDialogCheckout();
         const response = await addUserId().unwrap();
-
-        console.log("I am here session");
 
         if (addUserIdIsSuccess || response?.userId) {
           console.log("I am here response");
