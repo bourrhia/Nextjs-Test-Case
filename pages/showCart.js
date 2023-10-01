@@ -1848,8 +1848,7 @@ export const Cart = () => {
                       method="get"
                       sx={{
                         marginBottom: "14px",
-                        //  display: "block",
-                        //  marginTop: "0em",
+                        
                       }}
                     >
                       <Box>
@@ -1886,10 +1885,7 @@ export const Cart = () => {
                                 textRendering: "optimizeLegibility",
                                 fontSize: "18px!important",
                                 lineHeight: "24px!important",
-                                //
-                                //  hyphens: "manual",
-
-                                //  overflowWrap: "anywhere",
+                               
                                 fontWeight: 500,
                               }}
                             >

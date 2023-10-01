@@ -212,55 +212,47 @@ export const ProdViewUpsm = ({ selectedprd }) => {
   };
 
   const clickBuyNoInsc = async () => {
-    //try {
-    if (!session || !session.user) {
-      handleCloseBuyNow();
-      dispatch(
-        productAdded({
-          prodId,
-          prodImage,
-          prodDesc,
-          prodQtee,
-          prodPrix,
-          prodEtat,
-          status,
-          prodQteeDisp,
-        })
-      );
-      /* const response = await addUserId().unwrap();
+    try {
+      if (!session || !session.user) {
+        handleCloseBuyNow();
+        dispatch(
+          productAdded({
+            prodId,
+            prodImage,
+            prodDesc,
+            prodQtee,
+            prodPrix,
+            prodEtat,
+            status,
+            prodQteeDisp,
+          })
+        );
+        /* const response = await addUserId().unwrap();
 
-        alert(`Dimanche checkout addUserIdData : ${addUserIdData}`);
+         alert(`Dimanche checkout addUserIdData : ${addUserIdData}`);
         alert(`Dimanche checkout  response : ${response}`);
         alert(`Dimanche checkout  userId: ${response?.userId}`);
 
         if (addUserIdIsSuccess || response?.userId) {
-          //console.log("Samedi userId response : ", response);
           await handleNavCheckout(response?.userId);
         }*/
-
-      const response = await fetch("/api/generateUserId", {
-        method: "POST",
-      });
-
-      alert(`Dimanche response.status: ${response.status}`);
-      alert(`Dimanche response.status: ${response}`);
-
-      if (response.status === 200) {
-        const data = await response.json();
-        const { userId } = data;
-        alert(`Dimanche checkout userId: ${userId}`);
-        await handleNavCheckout(userId);
-      } else {
-        console.log("Erreur pour generer user id");
       }
-    }
-    //  } catch (err) {
-    /*   console.error(
+    } catch (err) {
+      console.error(
         "Un probleme est survenu pour acheter sans être inscrit: ",
         err
       );
     } finally {
-    }*/
+      const response = await addUserId().unwrap();
+
+      /* alert(`Dimanche checkout addUserIdData : ${addUserIdData}`);
+        alert(`Dimanche checkout  response : ${response}`);
+        alert(`Dimanche checkout  userId: ${response?.userId}`);*/
+
+      if (addUserIdIsSuccess || response?.userId) {
+        await handleNavCheckout(response?.userId);
+      }
+    }
   };
 
   function CustPaymentOutlinedIcon(props) {
