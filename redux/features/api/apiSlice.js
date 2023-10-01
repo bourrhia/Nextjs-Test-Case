@@ -7,7 +7,8 @@ export const apiSlice = createApi({
   // The cache reducer expects to be added at `state.api` (already default - this is optional)
   reducerPath: "api",
   // All of our requests will have URLs starting with '/api'
-  baseQuery: fetchBaseQuery({ baseUrl: process.env.VERCEL_URL }),
+  //baseQuery: fetchBaseQuery({ baseUrl: process.env.VERCEL_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
   tagTypes: ["User", "Orders"],
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
@@ -43,7 +44,6 @@ export const apiSlice = createApi({
 
     getOrderById: builder.query({
       query: (orderPkey) => ({ url: `/api/orders/${orderPkey}` }),
-      // providesTags: (result, error, id) => [{ type: "User", id }],
       providesTags: ["Orders"],
     }),
 
@@ -74,15 +74,12 @@ export const apiSlice = createApi({
         method: "POST",
         body: userSignUp,
       }),
-      //invalidatesTags: ["Orders"],
     }),
     editVerifEmail: builder.mutation({
       query: ({ emailToken }) => ({
         url: `/api/auth/verify/${emailToken}`,
         method: "POST",
-        //body: emailToken,
       }),
-      //invalidatesTags: ["Orders"],
     }),
     resendEmailVerif: builder.mutation({
       query: (email) => ({
@@ -94,47 +91,37 @@ export const apiSlice = createApi({
     generateResetCode: builder.mutation({
       query: ({ email }) => ({
         url: `/api/auth/generate-reset-code/${email}`,
-        // url: "/api/auth/generate-reset-code",
         method: "POST",
-        // body: email,
       }),
     }),
     resetPswd: builder.mutation({
       query: (emailresetCode) => ({
         url: "/api/auth/reset-password",
-        // url: "/api/auth/generate-reset-code",
         method: "POST",
         body: emailresetCode,
       }),
       invalidatesTags: ["User"],
     }),
     verifyResetCode: builder.mutation({
-      // query: ({ email, resetCode }) => ({
       query: (resetCodeData) => ({
         url: "/api/auth/verifyResetCode",
         method: "POST",
-        // body: { email, resetCode },
         body: resetCodeData,
       }),
-      //transformResponse: (response) => response.data,
     }),
     getUserEmail: builder.mutation({
       query: ({ email }) => ({
         url: `/api/auth/userByEmail/${email}`,
-        // url: "/api/auth/generate-reset-code",
         method: "POST",
-        // body: email,
       }),
     }),
     addPortTel: builder.mutation({
-      // query: ({ email, resetCode }) => ({
       query: (portTelData) => ({
         url: "/api/auth/addPhoneNumber",
         method: "POST",
-        // body: { email, resetCode },
+
         body: portTelData,
       }),
-      //transformResponse: (response) => response.data,
     }),
     getAllProducts: builder.query({
       query: () => ({ url: "/api/fuzzySearch/getProducts" }),

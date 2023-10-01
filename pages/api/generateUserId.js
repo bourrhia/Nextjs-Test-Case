@@ -17,9 +17,8 @@ export default async (req, res) => {
     const user = await db.collection("user").findOne({ _id: generatedUserId });
 
     if (user) {
-      //const userId = user.userId;
-      // res.status(200).json({ userId: userId });
-      res.status(200).json(user);
+      const userId = user.userId;
+      res.status(200).json({ userId: userId });
     } else {
       return null; // User with the given _id not found
     }
