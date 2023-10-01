@@ -233,9 +233,10 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         //alert(`Dimanche checkout addUserIdData : ${addUserIdData}`);
         //  alert(`Dimanche checkout  response : ${response}`);
         alert(`Dimanche response status : ${response.status}`);
+        alert(`Dimanche response status : ${response.insertedId}`);
 
-        if (addUserIdIsSuccess || response?.userId) {
-          await handleNavCheckout(response?.userId);
+        if (addUserIdIsSuccess || response?.insertedId) {
+          await handleNavCheckout(response?.insertedId);
         }
 
         /* const response = await addUserId().unwrap();
