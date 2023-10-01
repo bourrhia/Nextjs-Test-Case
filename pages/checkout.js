@@ -218,7 +218,8 @@ export const Checkout = () => {
     }, [id]);
 
     // Access the userId from the user
-    const { userId } = myUserId;
+    //const { userId } = myUserId;
+    const userId = myUserId?.userId;
     //const userId = 264;
 
     const dateLiv = "28/04/2023";

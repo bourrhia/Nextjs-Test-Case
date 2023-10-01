@@ -1,6 +1,6 @@
 import { connectToDatabase } from "../../util/mongodb";
 //import { ObjectId } from "mongodb"; // Import ObjectId
-// const { ObjectId } = require("mongodb");
+const { ObjectId } = require("mongodb");
 
 export default async function handler(req, res) {
   const { id } = req.query;
@@ -16,8 +16,8 @@ export default async function handler(req, res) {
   const { db } = await connectToDatabase();
 
   try {
-    // const objectId = new ObjectId(id); // Convert id string to ObjectId
-    const user = await db.collection("user").findOne({ _id: id });
+    const objectId = new ObjectId(id); // Convert id string to ObjectId
+    const user = await db.collection("user").findOne({ _id: objectId });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
