@@ -9,7 +9,7 @@ export const apiSlice = createApi({
   // All of our requests will have URLs starting with '/api'
   //baseQuery: fetchBaseQuery({ baseUrl: process.env.VERCEL_URL }),
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://nextjs-test-case.vercel.app/api",
+    baseUrl: "https://nextjs-test-case.vercel.app",
   }),
   tagTypes: ["User", "Orders"],
   extractRehydrationInfo(action, { reducerPath }) {
