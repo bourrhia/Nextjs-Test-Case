@@ -20,6 +20,7 @@
     "@reduxjs/toolkit": "^1.8.5",
     "@sendgrid/mail": "^7.7.0",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "fuse.js": "^6.6.2",
     "mongodb": "^4.9.0",
     "next": "12.2.5",
