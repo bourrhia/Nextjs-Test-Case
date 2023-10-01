@@ -10,8 +10,8 @@ export default async (req, res) => {
 
     // Insert an empty document into the users collection
     const result = await db.collection("user").insertOne({});
-    const { userId } = result.ops[0]; // Assuming the auto-incremented value is in the first inserted document
-
+    // const { userId } = result.ops[0]; // Assuming the auto-incremented value is in the first inserted document
+    const userId = result.ops[0].userId;
     // Return the userId in the response
     return res.status(200).json(userId);
 
