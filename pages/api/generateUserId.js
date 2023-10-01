@@ -16,11 +16,18 @@ export default async (req, res) => {
     // Find the document by generated _id
     const user = await db.collection("user").findOne({ _id: generatedUserId });
 
-    if (user) {
+    /*if (user) {
       const userId = user.userId;
       return res.status(200).json({ userId: userId });
     } else {
       return null; // User with the given _id not found
+    }*/
+
+    if (user && user.userId) {
+      const userId = user.userId;
+      return res.status(200).json({ userId: userId });
+    } else {
+      return res.status(404).json({ message: "User Not Found" });
     }
   } catch (error) {
     console.error("Error:", error);
