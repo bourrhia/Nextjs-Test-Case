@@ -124,11 +124,14 @@ export const ProdViewUpsm = ({ selectedprd }) => {
     },
   ] = useAddUserIdMutation();
 
-  const handleNavCheckout = async () => {
+  const handleNavCheckout = async (userId) => {
     setIsNavCheckout(true);
     try {
       await router.push({
         pathname: "/checkout",
+        query: {
+          userId: userId,
+        },
       });
     } catch (error) {
       // Handle any errors that might occur during navigation
