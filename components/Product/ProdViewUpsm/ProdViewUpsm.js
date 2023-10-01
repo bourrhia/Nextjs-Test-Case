@@ -245,6 +245,8 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         }
       );
 
+      alert(`Dimanche checkout userId: ${response.status}`);
+
       if (response?.ok) {
         const data = await response.json();
         const { userId } = data;
