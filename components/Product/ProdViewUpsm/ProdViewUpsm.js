@@ -238,9 +238,12 @@ export const ProdViewUpsm = ({ selectedprd }) => {
           await handleNavCheckout(response?.userId);
         }*/
 
-        const response = await fetch("/api/generateUserId", {
-          method: "POST",
-        });
+        const response = await fetch(
+          `${process.env.VERCEL_URL}/api/generateUserId`,
+          {
+            method: "POST",
+          }
+        );
 
         alert(`Dimanche checkout  response : ${response}`);
 
