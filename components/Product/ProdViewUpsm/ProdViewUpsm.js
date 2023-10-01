@@ -228,7 +228,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         const response = await addUserId().unwrap();
 
         // alert(`Dimanche response status : ${response.status}`);
-        alert(`Dimanche response status : ${response.userId}`);
+        //alert(`Dimanche response status : ${response.userId}`);
 
         if (addUserIdIsSuccess || response?.userId) {
           await handleNavCheckout(response?.userId);

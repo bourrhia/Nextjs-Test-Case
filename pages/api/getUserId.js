@@ -1,6 +1,6 @@
 import { connectToDatabase } from "../../util/mongodb";
-import { ObjectId } from "mongodb"; // Import ObjectId
-//const { ObjectId } = require("mongodb");
+//import { ObjectId } from "mongodb"; // Import ObjectId
+const { ObjectId } = require("mongodb");
 
 export default async function handler(req, res) {
   const { id } = req.query;
