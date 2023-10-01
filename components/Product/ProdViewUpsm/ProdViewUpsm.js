@@ -14,10 +14,7 @@ import { productAdded } from "../../../redux/features/cart/cartSlice";
 import { useAddUserIdMutation } from "../../../redux/features/api/apiSlice";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogActions from "@mui/material/DialogActions";
 
-import DialogContentText from "@mui/material/DialogContentText";
 import Backdrop from "@mui/material/Backdrop";
 import CloseIcon from "@mui/icons-material/Close";
 
