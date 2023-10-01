@@ -227,7 +227,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
             prodQteeDisp,
           })
         );
-        const response = await addUserId().unwrap();
+        /* const response = await addUserId().unwrap();
 
         alert(`Dimanche checkout addUserIdData : ${addUserIdData}`);
         alert(`Dimanche checkout  response : ${response}`);
@@ -236,6 +236,18 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         if (addUserIdIsSuccess || response?.userId) {
           //console.log("Samedi userId response : ", response);
           await handleNavCheckout(response?.userId);
+        }*/
+
+        const response = await fetch("/api/generateUserId", {
+          method: "POST",
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const { userId } = data;
+          await handleNavCheckout(userId);
+        } else {
+          console.log("Erreur pour generer user id");
         }
       }
     } catch (err) {
