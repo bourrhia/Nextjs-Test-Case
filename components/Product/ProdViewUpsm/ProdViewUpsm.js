@@ -229,6 +229,8 @@ export const ProdViewUpsm = ({ selectedprd }) => {
         );
         const response = await addUserId().unwrap();
 
+        alert(`Dimanche checkout 2 userId: ${response?.userId}`);
+
         if (addUserIdIsSuccess || response?.userId) {
           //console.log("Samedi userId response : ", response);
           await handleNavCheckout(response?.userId);
