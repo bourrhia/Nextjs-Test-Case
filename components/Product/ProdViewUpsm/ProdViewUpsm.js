@@ -242,9 +242,12 @@ export const ProdViewUpsm = ({ selectedprd }) => {
           method: "POST",
         });
 
+        alert(`Dimanche checkout  response : ${response}`);
+
         if (response.ok) {
           const data = await response.json();
           const { userId } = data;
+          alert(`Dimanche checkout  userId: ${data}`);
           await handleNavCheckout(userId);
         } else {
           console.log("Erreur pour generer user id");

@@ -1,5 +1,4 @@
 import { connectToDatabase } from "../../util/mongodb";
-import cors from "./cors";
 
 export default async (req, res) => {
   if (req.method !== "POST") {
@@ -7,7 +6,6 @@ export default async (req, res) => {
   }
 
   try {
-    cors(req, res);
     const { db } = await connectToDatabase();
 
     // Insert an empty document into the users collection
