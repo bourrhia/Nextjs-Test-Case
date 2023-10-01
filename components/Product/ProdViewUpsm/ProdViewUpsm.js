@@ -224,13 +224,7 @@ export const ProdViewUpsm = ({ selectedprd }) => {
             prodQteeDisp,
           })
         );
-        // const response = await addUserId().unwrap();
-        //console.log("Samedi userId response : ", response);
-        // if (response?.userId) {
-        //  setResponseUserId(response?.userId);
-        // }
-
-        //await handleNavCheckout();
+        const response = await addUserId().unwrap();
 
         if (addUserIdIsSuccess || response?.userId) {
           //console.log("Samedi userId response : ", response);
