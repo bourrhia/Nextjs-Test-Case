@@ -208,7 +208,6 @@ export const Checkout = () => {
     const router = useRouter();
     const { userId } = router.query;
 
-    alert(`Dimanche checkout 2 userId: ${userId}`);
     //console.log("Samedi checkout userId : ", userId);
     //const userId = 264;
 
