@@ -13,7 +13,7 @@ export default async (req, res) => {
     const { userId } = result.ops[0]; // Assuming the auto-incremented value is in the first inserted document
 
     // Return the userId in the response
-    return res.status(200).json({ userId });
+    return res.status(200).json(userId);
 
     //const generatedUserId = result.insertedId;
     //return res.status(200).json({ userId: generatedUserId });
