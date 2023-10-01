@@ -10,13 +10,7 @@
 
 module.exports = nextConfig;*/
 
-module.exports = {
-  reactStrictMode: true,
-  swcMinify: true,
-  webpack(config) {
-    config.experiments = { ...config.experiments, topLevelAwait: true };
-    return config;
-  },
+const nextConfig = {
   async headers() {
     return [
       {
@@ -38,4 +32,12 @@ module.exports = {
       },
     ];
   },
+  reactStrictMode: true,
+  swcMinify: true,
+  webpack(config) {
+    config.experiments = { ...config.experiments, topLevelAwait: true };
+    return config;
+  },
 };
+
+module.exports = nextConfig;
