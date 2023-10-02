@@ -37,6 +37,7 @@ export default function MyApp({ Component, ...rest }) {
   const [token, setToken] = useState();
   const [resetCode, setResetCode] = useState();
   const [userId, setUserId] = useState();
+  const [id, setId] = useState();
 
   useEffect(() => {
     if (router.isReady) {
@@ -51,6 +52,7 @@ export default function MyApp({ Component, ...rest }) {
       setToken(router.query.token);
       setResetCode(router.query.resetCode);
       setUserId(router.query.userId);
+      setId(router.query.id);
     }
   }, [router]);
 
@@ -73,7 +75,7 @@ export default function MyApp({ Component, ...rest }) {
   const changePswd = `/auth/changePassword?email=${email}&resetCode=${resetCode}`;
   const verifyEmail = `/auth/verify-email/${token}?email=${email}`;
   const chgPswdSuccess = `/auth/changePswdSuccess?email=${email}`;
-  const checkout = `/checkout?userId=${userId}`;
+  const checkout = `/checkout?id=${id}`;
 
   // Extract the base paths and query parameters from the current and target URLs
   const currentBasePath = currentAsPath.split("?")[0];
