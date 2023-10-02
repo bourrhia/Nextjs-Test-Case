@@ -74,6 +74,7 @@ const cartSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(cartSpinnerAsync.pending, (state, { meta }) => {
+        console.log("cartSpinnerAsync.pending is dispatched");
         let index = state.products
           ? state.products.map((item) => item.prodId).indexOf(meta.arg.prodId)
           : -1;
@@ -82,6 +83,7 @@ const cartSlice = createSlice({
         }
       })
       .addCase(cartSpinnerAsync.fulfilled, (state, action) => {
+        console.log("cartSpinnerAsync.fulfilled is dispatched");
         let idProductAction = action.payload.prodId;
         var index = state.products
           ? state.products.map((item) => item.prodId).indexOf(idProductAction)
