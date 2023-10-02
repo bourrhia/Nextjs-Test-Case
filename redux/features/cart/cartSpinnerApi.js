@@ -1,6 +1,6 @@
 export async function fetchCartSpinner(initialPost) {
   const response = await fetch("/api/cartspinner", {
-    //method: "GET",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
